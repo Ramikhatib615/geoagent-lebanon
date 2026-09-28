@@ -128,6 +128,44 @@ def test_audit_status_and_block_evidence_audit_fields():
     assert tools.block_evidence(not_audited)["human_audit"]["audited"] is False
 
 
+def test_map_catalog_and_block_demo_R44():
+    """R44: the executive defense map catalogue and the per-block defense summary must agree with audit_status()/
+    block_evidence() on the two decisive Rule 1 flips (E137, E199) and the 5 still-contested interpretation-sensitive
+    blocks, and must fail cleanly on an unknown id."""
+    mc = tools.map_catalog()
+    assert mc["found"] and mc["n_maps"] == 5
+    ids = [m["id"] for m in mc["maps"]]
+    assert ids == ["study_area_sampling_frame", "ai_consensus_change_labels", "human_audit_result",
+                   "operational_deferral_map", "audit_corrected_interpretation"]
+    for m in mc["maps"]:
+        assert m["path_pdf"].endswith(".pdf") and m["path_png"].endswith(".png") and "exists" in m
+        assert m["thesis_section"] and m["title"] and m["what_it_shows"] and m["talking_point"] and m["caveat"]
+    mc_ar = tools.map_catalog(lang="ar")
+    assert any("؀" <= ch <= "ۿ" for ch in mc_ar["maps"][0]["title"])
+
+    for bid in ("E137", "E199"):
+        d = tools.block_demo(bid)
+        assert d["found"] and d["is_rule1_certainty_unit"] is True and d["is_rule1_pivotal_flip"] is True
+        assert d["is_interpretation_sensitive"] is False
+        assert d["ai_consensus_label"] == "change" and d["human_audit"]["human_final"] == "no_change"
+        assert "audit_corrected_interpretation" in d["map_references"] or any("Audit-Corrected" in t for t in d["map_references"])
+
+    for bid in ("E056", "E080", "E120", "E123", "E180"):
+        d = tools.block_demo(bid)
+        assert d["found"] and d["is_interpretation_sensitive"] is True, bid
+        assert d["is_rule1_pivotal_flip"] is False, bid
+        assert d["human_audit"]["audited"] is True and d["human_audit"]["human_final"] is None, bid
+        assert "contested" in d["agreement_status"] or "متنازع" in d["agreement_status"], bid
+
+    d_ar = tools.block_demo("E137", lang="ar")
+    assert any("؀" <= ch <= "ۿ" for ch in d_ar["professor_friendly_explanation"])
+    assert "change" not in d_ar["agreement_status"] and "no_change" not in d_ar["agreement_status"], \
+        "R44 fix: the Arabic agreement_status must not embed raw English label words"
+
+    r = tools.block_demo("E999")
+    assert r["found"] is False and r["valid_id_pattern"] == "E001..E200"
+
+
 def test_mcp_protocol_roundtrip():
     out = rpc([{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05"}},
                {"jsonrpc": "2.0", "method": "notifications/initialized"},

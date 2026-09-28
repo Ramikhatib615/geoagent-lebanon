@@ -667,6 +667,249 @@ def audit_status(lang="auto"):
     }
 
 
+MAPS_DIR = os.path.join(ROOT, "outputs", "maps")
+
+# R44 (2026-09-28): the "executive defense map set" -- 5 static PDF/PNG maps rendered once from these same
+# result files (make_maps.py, repo root) for use in a defense/demo. The files themselves are part of the full
+# local GIS/thesis bundle, not the packaged GitHub repo (see data/README.md there) -- map_catalog() only ever
+# reports their local path and whether that path currently exists; it never claims a file is present that
+# os.path.exists() cannot confirm at call time.
+_MAP_CATALOG = [
+    {"id": "study_area_sampling_frame", "stub": "01_study_area_sampling_frame",
+     "title_en": "Study Area & Sampling Frame", "title_ar": "منطقة الدراسة وإطار العيّنة",
+     "shows_en": "All 200 stratified 420 m reference blocks across the two AOIs (Beirut, Mount Lebanon), coloured by AOI.",
+     "shows_ar": "كل الكتل المرجعية الـ200 (420 م) الموزّعة طبقياً على منطقتي بيروت وجبل لبنان، ملوّنة حسب المنطقة.",
+     "thesis_section": "Section 3.2 (Sampling Design)",
+     "use_when_en": "Opening the defense: establishing where the study areas are and how the 200-block sample was drawn, before any results.",
+     "use_when_ar": "بداية المناقشة: لتوضيح مكان منطقتي الدراسة وكيفية سحب عيّنة الـ200 كتلة، قبل عرض أي نتائج.",
+     "talking_point_en": "A stratified sample of 200 blocks (100 per AOI) drawn by land-use stratum, not a census of either area.",
+     "talking_point_ar": "عيّنة طبقية من 200 كتلة (100 لكل منطقة) مسحوبة حسب شريحة استخدام الأرض، وليست تعداداً كاملاً لأي منطقة.",
+     "caveat_en": "Block markers are enlarged for visibility, not to true 420 m footprint scale.",
+     "caveat_ar": "علامات الكتل مكبَّرة للوضوح وليست بمقياس المساحة الفعلي 420 م."},
+    {"id": "ai_consensus_change_labels", "stub": "02_ai_consensus_change_labels",
+     "title_en": "AI-Consensus Change Labels", "title_ar": "تصنيفات التغيّر بإجماع الذكاء الاصطناعي",
+     "shows_en": "The original, pre-audit AI-consensus label (change / no_change / uncertain) for all 200 blocks.",
+     "shows_ar": "التصنيف الأصلي (قبل التدقيق) بإجماع الذكاء الاصطناعي (تغيّر/لا تغيّر/غير مؤكد) لكل الكتل الـ200.",
+     "thesis_section": "Chapters 3–4 (Data & Methods: AI-consensus labelling)",
+     "use_when_en": "Explaining how blocks were first labelled: two independent AI annotators plus adjudication, before any human audit.",
+     "use_when_ar": "لشرح كيفية تصنيف الكتل أول مرة: مصنّفان آليان مستقلان مع حسم الخلاف، قبل أي تدقيق بشري.",
+     "talking_point_en": "47 change, 135 no_change, 18 uncertain -- AI-consensus, i.e. candidate reference labels, not yet human-verified.",
+     "talking_point_ar": "47 تغيّر، 135 لا تغيّر، 18 غير مؤكد -- بإجماع الذكاء الاصطناعي، أي تصنيفات مرجعية مرشّحة وليست مدقَّقة بشرياً بعد.",
+     "caveat_en": "AI-consensus labels are NOT human ground truth outside the 80-block audited subset (see Map 3).",
+     "caveat_ar": "تصنيفات إجماع الذكاء الاصطناعي ليست حقيقة ميدانية بشرية خارج العيّنة المدقَّقة من 80 كتلة (انظر الخريطة 3)."},
+    {"id": "human_audit_result", "stub": "03_human_audit_result",
+     "title_en": "Human Audit Result (Appendix G)", "title_ar": "نتيجة التدقيق البشري (الملحق G)",
+     "shows_en": "The 80 decision-sensitive blocks audited blind by two reviewers: agreed no_change, agreed change, the 5 contested blocks, and E137/E199 highlighted as the decisive Rule 1 flips.",
+     "shows_ar": "الكتل الثمانون الحسّاسة للقرار والمدقَّقة بشكل أعمى من مراجعَين: اتفاق على لا تغيّر، اتفاق على تغيّر، الكتل الخمس المتنازع عليها، مع إبراز E137 وE199 كانقلابَي القاعدة 1 الحاسمَين.",
+     "thesis_section": "Section 5.14 (Audit Result) and Appendix G (Human Audit Protocol)",
+     "use_when_en": "Explaining Appendix G and E137/E199 -- the centrepiece of the audit story.",
+     "use_when_ar": "لشرح الملحق G وE137 وE199 -- جوهر قصة التدقيق.",
+     "talking_point_en": "The audit confirmed 75/80 labels (100% reviewer agreement on decided blocks) and flagged E137/E199 as decisive flips.",
+     "talking_point_ar": "أكّد التدقيق 75 من 80 تصنيفاً (اتفاق تام بين المراجعَين على الكتل المحسومة) ورصد E137 وE199 كانقلابَين حاسمَين.",
+     "caveat_en": "Thick outline = audited (80 blocks); thin/light outline = not audited (AI-consensus only, 120 blocks).",
+     "caveat_ar": "الإطار السميك = مدقَّقة (80 كتلة)؛ الإطار الرفيع الباهت = غير مدقَّقة (إجماع ذكاء اصطناعي فقط، 120 كتلة)."},
+    {"id": "operational_deferral_map", "stub": "04_operational_deferral_map",
+     "title_en": "Operational Deferral Map", "title_ar": "خريطة الإحالة التشغيلية",
+     "shows_en": "Which blocks a deployed pipeline would decide automatically (change / no_change) versus send to a human reviewer, per the same rule as uncertainty().",
+     "shows_ar": "الكتل التي يقرّرها خط أنابيب مُشغَّل تلقائياً (تغيّر/لا تغيّر) مقابل ما يُحال إلى مراجع بشري، وفق نفس قاعدة uncertainty().",
+     "thesis_section": "Section 5.15 (Operational Map and Survey Design)",
+     "use_when_en": "Explaining how the system would run operationally day to day, and what fraction of decisions need a human.",
+     "use_when_ar": "لشرح كيفية عمل النظام تشغيلياً يومياً، وما نسبة القرارات التي تحتاج مراجعة بشرية.",
+     "talking_point_en": "43 of 200 blocks (about a fifth) would be deferred to a human reviewer under this rule -- not a fully autonomous system.",
+     "talking_point_ar": "43 من أصل 200 كتلة (نحو الخُمس) تُحال إلى مراجع بشري وفق هذه القاعدة -- ليس نظاماً مستقلاً بالكامل.",
+     "caveat_en": "Deferral rule: label uncertain, or the two AI annotators disagreed and needed adjudication.",
+     "caveat_ar": "قاعدة الإحالة: تصنيف غير مؤكد، أو اختلاف المصنّفَين الآليين وحاجتهما لحسم الخلاف."},
+    {"id": "audit_corrected_interpretation", "stub": "05_audit_corrected_interpretation",
+     "title_en": "Audit-Corrected Interpretation", "title_ar": "التفسير المصحَّح بعد التدقيق",
+     "shows_en": "The headline audited result: changed area corrected to 56.6 km^2 (was 82.1 km^2 uncorrected), the 17 audit-sensitive (flipped) blocks, and E137/E199 as the decisive Rule 1 pair.",
+     "shows_ar": "النتيجة الرئيسية بعد التدقيق: المساحة المتغيّرة مصحَّحة إلى 56.6 كم² (كانت 82.1 كم² قبل التصحيح)، والكتل السبع عشرة الحسّاسة للتدقيق (المنقلبة)، وE137 وE199 كزوج القاعدة 1 الحاسم.",
+     "thesis_section": "Sections 5.13–5.14 and 6.6 (Audited Re-analysis; What the Headline Rests On)",
+     "use_when_en": "Closing the results narrative: what changed once the audit was applied, and why the spectral-vs-random-forest ranking is now audit-sensitive.",
+     "use_when_ar": "لختام سرد النتائج: ما الذي تغيّر بعد تطبيق التدقيق، ولماذا أصبح ترتيب الطيفي مقابل الغابة العشوائية حسّاساً للتدقيق.",
+     "talking_point_en": "Two blocks (E137, E199) flipping is what makes the headline model-ranking claim not supported / audit-sensitive.",
+     "talking_point_ar": "انقلاب كتلتين فقط (E137 وE199) هو ما يجعل ادّعاء ترتيب النموذج الرئيسي غير مدعوم/حسّاساً للتدقيق.",
+     "caveat_en": "Faint markers = AI-consensus label only, not audited or unchanged by the audit.",
+     "caveat_ar": "العلامات الباهتة = تصنيف إجماع الذكاء الاصطناعي فقط، غير مدقَّق أو لم يتغيّر بعد التدقيق."},
+]
+
+
+def map_catalog(lang="auto"):
+    """List the 5 static "executive defense map" PDFs/PNGs (make_maps.py output): title, local path, what each
+    map shows, the thesis section it illustrates, when to open it in a defense, its one-line talking point, and
+    its caveat. The map files themselves live in the full local GIS/thesis bundle, not in the packaged GitHub
+    repository (see data/README.md there) -- `exists` reports whether this tool can currently see the file at
+    that path, checked fresh on every call; nothing about a map's content is asserted beyond that."""
+    lang = _lang(lang, "")
+    maps = []
+    for m in _MAP_CATALOG:
+        pdf = os.path.join(MAPS_DIR, m["stub"] + ".pdf")
+        png = os.path.join(MAPS_DIR, m["stub"] + ".png")
+        maps.append({
+            "id": m["id"], "title": m["title_ar"] if lang == "ar" else m["title_en"],
+            "path_pdf": pdf, "path_png": png, "exists": os.path.exists(pdf) or os.path.exists(png),
+            "what_it_shows": m["shows_ar"] if lang == "ar" else m["shows_en"],
+            "thesis_section": m["thesis_section"],
+            "use_when": m["use_when_ar"] if lang == "ar" else m["use_when_en"],
+            "talking_point": m["talking_point_ar"] if lang == "ar" else m["talking_point_en"],
+            "caveat": m["caveat_ar"] if lang == "ar" else m["caveat_en"],
+        })
+    return {
+        "found": True, "maps_root": MAPS_DIR, "n_maps": len(maps), "maps": maps,
+        "note": ("These map files live in the full local GIS/thesis bundle, not in the packaged GitHub repository; "
+                 "the paths above only resolve on the machine that holds that bundle." if lang != "ar" else
+                 "ملفات هذه الخرائط موجودة ضمن حزمة الأطروحة/نظم المعلومات الجغرافية المحلية الكاملة، وليست ضمن مستودع GitHub "
+                 "المُعبَّأ؛ المسارات أعلاه تعمل فقط على الجهاز الذي يحتفظ بتلك الحزمة."),
+        "caveats": _caveats(lang),
+    }
+
+
+# Blocks worth a special note in block_demo() beyond the generic audited/not-audited/flipped logic below.
+_BLOCK_DEMO_NOTES_EN = {
+    "E137": "One of the 13 pre-registered Rule 1 ‘certainty units’. Its audited flip (AI-consensus change -> "
+            "human no_change) is one of exactly two that make the spectral-vs-random-forest ranking not supported "
+            "/ audit-sensitive -- see audit_status().",
+    "E199": "One of the 13 pre-registered Rule 1 ‘certainty units’. Its audited flip (AI-consensus change -> "
+            "human no_change) is one of exactly two that make the spectral-vs-random-forest ranking not supported "
+            "/ audit-sensitive -- see audit_status().",
+    "E056": "One of the 5 blocks where the two human reviewers could not agree even after independent review; it "
+            "remains undecided, not resolved by majority or a default label.",
+    "E080": "One of the 5 blocks where the two human reviewers could not agree even after independent review; it "
+            "remains undecided, not resolved by majority or a default label.",
+    "E120": "One of the 5 blocks where the two human reviewers could not agree even after independent review; it "
+            "remains undecided, not resolved by majority or a default label.",
+    "E123": "One of the 5 blocks where the two human reviewers could not agree even after independent review; it "
+            "remains undecided, not resolved by majority or a default label.",
+    "E180": "One of the 5 blocks where the two human reviewers could not agree even after independent review; it "
+            "remains undecided, not resolved by majority or a default label.",
+}
+_BLOCK_DEMO_NOTES_AR = {
+    "E137": "إحدى وحدات اليقين الـ13 المسجَّلة مسبقاً ضمن القاعدة 1. انقلابها بعد التدقيق (من تغيّر بإجماع الذكاء "
+            "الاصطناعي إلى لا تغيّر بشرياً) هو أحد انقلابَين فقط يجعلان ترتيب الطيفي مقابل الغابة العشوائية غير "
+            "مدعوم/حسّاساً للتدقيق -- انظر audit_status().",
+    "E199": "إحدى وحدات اليقين الـ13 المسجَّلة مسبقاً ضمن القاعدة 1. انقلابها بعد التدقيق (من تغيّر بإجماع الذكاء "
+            "الاصطناعي إلى لا تغيّر بشرياً) هو أحد انقلابَين فقط يجعلان ترتيب الطيفي مقابل الغابة العشوائية غير "
+            "مدعوم/حسّاساً للتدقيق -- انظر audit_status().",
+    "E056": "إحدى الكتل الخمس التي لم يتفق عليها المراجعان البشريان حتى بعد مراجعة مستقلة؛ تبقى بلا قرار ولم تُحسم "
+            "بالأغلبية أو بتصنيف افتراضي.",
+    "E080": "إحدى الكتل الخمس التي لم يتفق عليها المراجعان البشريان حتى بعد مراجعة مستقلة؛ تبقى بلا قرار ولم تُحسم "
+            "بالأغلبية أو بتصنيف افتراضي.",
+    "E120": "إحدى الكتل الخمس التي لم يتفق عليها المراجعان البشريان حتى بعد مراجعة مستقلة؛ تبقى بلا قرار ولم تُحسم "
+            "بالأغلبية أو بتصنيف افتراضي.",
+    "E123": "إحدى الكتل الخمس التي لم يتفق عليها المراجعان البشريان حتى بعد مراجعة مستقلة؛ تبقى بلا قرار ولم تُحسم "
+            "بالأغلبية أو بتصنيف افتراضي.",
+    "E180": "إحدى الكتل الخمس التي لم يتفق عليها المراجعان البشريان حتى بعد مراجعة مستقلة؛ تبقى بلا قرار ولم تُحسم "
+            "بالأغلبية أو بتصنيف افتراضي.",
+}
+
+
+def block_demo(block_id, lang="auto"):
+    """A single, defense-ready summary for one block id: its AI-consensus label, its human-audit label if any,
+    reviewer agreement status, why it matters (e.g. E137/E199 as the two Rule 1 flips, or one of the 5 still-
+    contested blocks), which map(s) show it, its evidence-book image reference if any, a plain-language
+    explanation for someone unfamiliar with the project's internals, and the standard caveats. Every field is
+    read from block_evidence()/audit_status()'s own underlying data; nothing here is a new computation."""
+    lang = _lang(lang, block_id)
+    B = load()["blocks"]
+    i = (block_id or "").strip().upper()
+    if i not in B:
+        return {"found": False, "block_id": block_id,
+                "message": ("معرّف الكتلة غير موجود." if lang == "ar" else "Unknown block id."),
+                "valid_id_pattern": "E001..E200", "caveats": _caveats(lang)}
+    b = B[i]
+    aud = _load_audit().get(i)
+    cu = _load_certainty_units()
+    is_rule1_unit = i in cu
+    is_flipped = bool(aud and (aud.get("human_final") or "").strip() and aud["human_final"] != b["label"])
+    is_rule1_flip = is_rule1_unit and is_flipped
+    is_interp_sensitive = bool(aud and (aud.get("interpretation_sensitive") or "").strip().lower() in ("yes", "true", "1"))
+
+    if i in (_BLOCK_DEMO_NOTES_AR if lang == "ar" else _BLOCK_DEMO_NOTES_EN):
+        why = (_BLOCK_DEMO_NOTES_AR if lang == "ar" else _BLOCK_DEMO_NOTES_EN)[i]
+    elif is_rule1_unit and not is_flipped:
+        why = ("One of the 13 pre-registered Rule 1 ‘certainty units’; the audit confirmed its AI-consensus label held, "
+               "supporting (for this block) the pre-audit model-ranking claim." if lang != "ar" else
+               "إحدى وحدات اليقين الـ13 المسجَّلة مسبقاً ضمن القاعدة 1؛ أكّد التدقيق صمود تصنيفها بإجماع الذكاء الاصطناعي، "
+               "وهو ما يدعم لهذه الكتلة ادّعاء ترتيب النموذج قبل التدقيق.")
+    elif is_flipped:
+        why = ("One of the 17 blocks overall where the audited label differs from AI-consensus, though not one of the "
+               "13 pre-registered Rule 1 units." if lang != "ar" else
+               "إحدى الكتل السبع عشرة إجمالاً التي يختلف تصنيفها المدقَّق عن إجماع الذكاء الاصطناعي، لكنها ليست من "
+               "وحدات القاعدة 1 الـ13 المسجَّلة مسبقاً.")
+    elif aud:
+        why = ("Part of the 80-block decision-sensitive human audit sample; the audit confirmed the AI-consensus label." if lang != "ar" else
+               "ضمن عيّنة التدقيق البشري الحسّاسة للقرار المؤلفة من 80 كتلة؛ أكّد التدقيق تصنيف إجماع الذكاء الاصطناعي.")
+    else:
+        why = ("Not part of the 80-block audit sample; its label is AI-consensus only, not human ground truth." if lang != "ar" else
+               "ليست ضمن عيّنة التدقيق البشري المؤلفة من 80 كتلة؛ تصنيفها بإجماع الذكاء الاصطناعي فقط وليس حقيقة ميدانية بشرية.")
+
+    def defer_reasons():
+        why_r = []
+        if b["label"] == "uncertain":
+            why_r.append("label_uncertain")
+        if b["label_source"] == "adjudicated":
+            why_r.append("annotators_disagreed_then_adjudicated")
+        return why_r
+
+    map_ids = ["ai_consensus_change_labels"]
+    if defer_reasons():
+        map_ids.append("operational_deferral_map")
+    if aud:
+        map_ids.append("human_audit_result")
+    if is_flipped:
+        map_ids.append("audit_corrected_interpretation")
+    map_titles = [m["title_ar"] if lang == "ar" else m["title_en"] for m in _MAP_CATALOG if m["id"] in map_ids]
+
+    human_audit = None
+    if aud:
+        human_audit = {
+            "audited": True, "human_1": aud.get("human_1") or None, "human_2": aud.get("human_2") or None,
+            "human_final": aud.get("human_final") or None, "interpretation_sensitive": is_interp_sensitive,
+            "reviewer_1": aud.get("r1_reviewer") or None, "reviewer_2": aud.get("r2_reviewer") or None,
+            "differs_from_ai_consensus_label": is_flipped,
+        }
+        if is_interp_sensitive:
+            agreement_status = ("contested -- the two reviewers disagreed and it remains undecided" if lang != "ar" else
+                                 "متنازع عليها -- اختلف المراجعان وبقيت بلا قرار")
+        elif is_flipped:
+            agreement_status = ("audited: both reviewers agreed, flipping the label from AI-consensus '%s' to '%s'" % (b["label"], aud["human_final"])
+                                 if lang != "ar" else "مدقَّقة: اتفق المراجعان، وانقلب التصنيف من «%s» (إجماع الذكاء الاصطناعي) إلى «%s»" % (
+                                     LABEL_AR.get(b["label"], b["label"]), LABEL_AR.get(aud["human_final"], aud["human_final"])))
+        else:
+            agreement_status = ("audited: both reviewers agreed with the AI-consensus label" if lang != "ar" else
+                                 "مدقَّقة: اتفق المراجعان مع تصنيف إجماع الذكاء الاصطناعي")
+    else:
+        human_audit = {"audited": False}
+        agreement_status = ("not part of the audit sample" if lang != "ar" else "ليست ضمن عيّنة التدقيق")
+
+    place = b["place_ar"] if lang == "ar" else b["place_en"]
+    if lang == "ar":
+        prof = ("الكتلة %s قرب %s: صنّفها الذكاء الاصطناعي «%s»." % (i, place, LABEL_AR.get(b["label"], b["label"])))
+        if aud:
+            prof += (" بعد التدقيق البشري الأعمى، %s." % agreement_status)
+        else:
+            prof += " هذه الكتلة لم تخضع للتدقيق البشري، فتصنيفها يبقى مرشّحاً وليس مؤكَّداً."
+        prof += " " + why
+    else:
+        prof = "Block %s, near %s: the AI pipeline labelled it '%s'." % (i, place, b["label"])
+        if aud:
+            prof += " After the blind human audit, it is %s." % agreement_status
+        else:
+            prof += " This block was not part of the human audit, so its label remains a candidate, not confirmed."
+        prof += " " + why
+
+    return {
+        "found": True, "id": i, "place_en": b["place_en"], "place_ar": b["place_ar"], "governorate": b["governorate"],
+        "ai_consensus_label": b["label"], "annotator_A": b["annotator_A"], "annotator_B": b["annotator_B"],
+        "human_audit": human_audit, "agreement_status": agreement_status,
+        "is_rule1_certainty_unit": is_rule1_unit, "is_rule1_pivotal_flip": is_rule1_flip,
+        "is_interpretation_sensitive": is_interp_sensitive,
+        "why_it_matters": why, "map_references": map_titles,
+        "evidence_book_reference": b.get("type_sheet") or None,
+        "professor_friendly_explanation": prof,
+        "caveats": _caveats(lang),
+    }
+
+
 TOOLS = {
     "list_places": (list_places, "List named places (Arabic or English) that have reference blocks, with counts of blocks by label. Optional name filter and governorate.",
                     {"query": {"type": "string", "description": "partial place name, Arabic or English (optional)"}, "governorate": {"type": "string"}, "limit": {"type": "integer"}, "lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
@@ -688,6 +931,14 @@ TOOLS = {
                      "differs from the AI-consensus label, the correlated-error test result, and the resulting audited re-analysis (headline AUC "
                      "comparison and the recalibrated changed-area estimate). All values are read from the audit's own result files; nothing is recomputed.",
                      {"lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
+    "map_catalog": (map_catalog, "List the 5 static executive defense maps (PDF/PNG): title, local path, what each shows, its thesis section, "
+                    "when to open it in a defense, its talking point, and its caveat. Map files live in the full local GIS/thesis bundle, not the "
+                    "packaged GitHub repo; `exists` is checked fresh on every call.",
+                    {"lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
+    "block_demo": (block_demo, "Defense-ready summary for one block id: AI-consensus label, human-audit label and agreement status if audited, "
+                   "why the block matters (e.g. E137/E199 as the two Rule 1 pivotal flips, or a still-contested block), which map(s) show it, its "
+                   "evidence-book image reference, a plain-language explanation, and caveats.",
+                   {"block_id": {"type": "string"}, "lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, ["block_id"]),
 }
 
 

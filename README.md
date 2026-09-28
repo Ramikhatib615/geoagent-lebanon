@@ -2,7 +2,7 @@
 
 **Data Science + GIS + AI agent project.** A read-only, tool-using AI agent (Arabic and English) that
 answers questions about 2018→2025 land-cover change in Beirut and Mount Lebanon, grounded entirely in
-a stratified reference sample and a completed human audit — never in free generation, and never by
+a stratified reference sample, a completed human audit, and a set of defense-ready static maps — never in free generation, and never by
 editing the underlying labels or files.
 
 > This repository is the software-packaging companion to a master's thesis (GeoAgent-Lebanon:
@@ -26,10 +26,10 @@ editing the underlying labels or files.
 
 ## Key features
 
-- **9 read-only MCP tools** (`list_places`, `change_summary`, `block_evidence`, `uncertainty`,
-  `compare_places`, `query_blocks`, `blocks_near`, `area_estimate`, `audit_status`) exposed over the
-  Model Context Protocol, so any MCP-capable assistant (e.g. Claude Desktop) can query them directly —
-  see [docs/mcp-tools.md](docs/mcp-tools.md) for the full reference.
+- **11 read-only MCP tools** (`list_places`, `change_summary`, `block_evidence`, `uncertainty`,
+  `compare_places`, `query_blocks`, `blocks_near`, `area_estimate`, `audit_status`, `map_catalog`,
+  `block_demo`) exposed over the Model Context Protocol, so any MCP-capable assistant (e.g. Claude
+  Desktop) can query them directly — see [docs/mcp-tools.md](docs/mcp-tools.md) for the full reference.
 - **Bilingual by design**, not by translation: place names, filter values (`تغيّر`/`change`,
   `جبل لبنان`/`Mount Lebanon`, …), and every response message work natively in Arabic and English, with
   Arabic diacritic/spelling normalisation so `الضاحية` and `الضَّاحية` resolve to the same blocks.
@@ -40,7 +40,7 @@ editing the underlying labels or files.
   needed — useful for demos, debugging, and CI.
 - **Every call logged.** An optional, append-only JSONL audit log (`tool_audit_log.py`) records every
   tool call made through the CLI, the MCP server, or the QGIS panel, for later review.
-- **Fully tested.** 5 independent test suites (62 tests total) cover the tool layer, the MCP protocol
+- **Fully tested.** 5 independent test suites (63 tests total) cover the tool layer, the MCP protocol
   round-trip, free-text query parsing, the QGIS panel's pure logic, error recovery/suggestions, and the
   audit log — see [Quick start](#quick-start) to run them yourself.
 
@@ -65,7 +65,7 @@ its own read-only data files.
 git clone <this-repo-url> geoagent-lebanon
 cd geoagent-lebanon
 
-# Run the full test suite (62 tests across 5 files; GEOAGENT_AUDIT_LOG="" keeps tests
+# Run the full test suite (63 tests across 5 files; GEOAGENT_AUDIT_LOG="" keeps tests
 # from writing to outputs/ as a side effect)
 GEOAGENT_AUDIT_LOG="" python tests/test_tools.py
 GEOAGENT_AUDIT_LOG="" python tests/test_agent_recovery.py
@@ -84,6 +84,26 @@ python src/geoagent/tool_cli.py block_evidence "{\"block_id\": \"E137\"}"
 Requires Python 3.9+ and nothing else (see [requirements.txt](requirements.txt) — the tool layer is
 pure standard library).
 
+## Visual demo
+
+Beyond the 9 data tools above, two more read-only tools make the agent map-aware for a defense or review
+by someone who has not lived inside this project: `map_catalog()` lists the 5 static "executive defense
+map" PDFs/PNGs (title, thesis section, talking point, caveat, local path), and `block_demo(block_id)`
+gives a single-block defense card (AI-consensus label, human-audit outcome, why it matters, which map(s)
+show it, a plain-language explanation) — built for blocks like `E137`/`E199` (the two decisive Rule 1
+flips) and the 5 still-contested blocks (`E056`, `E080`, `E120`, `E123`, `E180`).
+
+**The map PDFs/PNGs themselves are not in this GitHub repository** — like the raw imagery and ArcGIS Pro
+project (see [data/README.md](data/README.md)), they live in the full local thesis/GIS bundle.
+`map_catalog()` reports each map's local path and checks `exists` fresh on every call; it never claims a
+file is present that it cannot see. This repo ships the agent and the small data the maps and tools are
+both built from, so `map_catalog()`/`block_demo()` run and test cleanly here even without the map files
+present — only the `exists` flags and the images themselves need the full bundle.
+
+See [docs/visual-demo.md](docs/visual-demo.md) for the executive map set, the styling convention, and the
+recommended defense flow, and [examples/visual_demo_script.md](examples/visual_demo_script.md) for a
+ready-to-run 5-minute script.
+
 ## Claude Desktop MCP setup
 
 Add this to Claude Desktop's config (Settings → Developer → Edit Config, under `mcpServers`), replacing
@@ -100,14 +120,14 @@ the path with wherever you cloned this repo:
 }
 ```
 
-Restart Claude Desktop after adding or changing this entry so it picks up the current 9-tool list. See
+Restart Claude Desktop after adding or changing this entry so it picks up the current 11-tool list. See
 [examples/claude_desktop_config.json](examples/claude_desktop_config.json) for a ready-to-copy file and
 [docs/mcp-tools.md](docs/mcp-tools.md) for what each tool does.
 
 ## CLI usage
 
 ```bash
-python src/geoagent/tool_cli.py list                                        # schema of all 9 tools
+python src/geoagent/tool_cli.py list                                        # schema of all 11 tools
 python src/geoagent/tool_cli.py change_summary "{\"place\": \"Dahieh\"}"
 python src/geoagent/tool_cli.py area_estimate "{\"aoi\": \"beirut\"}"
 python src/geoagent/tool_audit_log.py outputs/agent_tool_audit_log.jsonl    # summarise the call log
@@ -191,4 +211,5 @@ for the audit, Chapters 4–5 for the primary analysis).
 - [docs/mcp-tools.md](docs/mcp-tools.md) — all 9 tools, inputs, outputs, caveats, example questions
 - [docs/audit-methodology.md](docs/audit-methodology.md) — the human audit protocol and Rule 1 / Rule 2
 - [docs/gis-workflow.md](docs/gis-workflow.md) — the ArcGIS Pro side of the project
-- [docs/demo-questions.md](docs/demo-questions.md) — a ready-to-run demo script
+- [docs/demo-questions.md](docs/demo-questions.md) — a ready-to-run text-question demo script
+- [docs/visual-demo.md](docs/visual-demo.md) — the executive map set and the visual defense flow

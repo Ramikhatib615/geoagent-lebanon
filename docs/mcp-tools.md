@@ -1,6 +1,6 @@
 # MCP tools reference
 
-All 9 tools are exposed over the Model Context Protocol by `src/geoagent/mcp_server.py`, and directly as
+All 11 tools are exposed over the Model Context Protocol by `src/geoagent/mcp_server.py`, and directly as
 Python functions / a CLI by `src/geoagent/tools.py` / `src/geoagent/tool_cli.py`. The `TOOLS` dict in
 `tools.py` is the single source of truth: both the MCP server's `tools/list` and `tool_cli.py list`
 iterate it dynamically, so this list is always exactly what a running server or the CLI will report.
@@ -194,3 +194,47 @@ subset, not the full 200-block sample.
 random forest claim audit-sensitive?"; "قديش المساحة المتغيّرة بعد التدقيق البشري؟"
 
 See [docs/audit-methodology.md](audit-methodology.md) for the full audit protocol these numbers come from.
+---
+
+## `map_catalog`
+
+**Purpose:** list the 5 static "executive defense map" PDFs/PNGs (generated once by `make_maps.py` in the
+full thesis/GIS bundle) — title, local path, what each map shows, the thesis section it illustrates, when
+to open it in a defense, its one-line talking point, and its caveat. See
+[docs/visual-demo.md](visual-demo.md) for the full map set and defense flow.
+
+**Inputs:** `lang` only.
+
+**Output summary:** `n_maps` (5), `maps` (list of `{id, title, path_pdf, path_png, exists, what_it_shows,
+thesis_section, use_when, talking_point, caveat}`, in defense order), a `note` that the map files
+themselves live in the full local thesis/GIS bundle, not this repository.
+
+**Caveats beyond the standard 4:** `exists` is checked fresh against the local filesystem on every call —
+it is `false` wherever the map files are not present (e.g. running this tool layer from this repository
+alone, without the full bundle).
+
+**Example question:** "What maps are available for the defense, and in what order should I show them?"
+
+---
+
+## `block_demo`
+
+**Purpose:** a single, defense-ready summary for one block id, for use alongside `map_catalog()`'s maps:
+its AI-consensus label, its human-audit label and agreement status if audited, whether it is one of the
+13 pre-registered Rule 1 "certainty units", whether it is one of the 2 pivotal Rule 1 flips (`E137`,
+`E199`), whether it is one of the 5 still-contested interpretation-sensitive blocks, which map(s) show it,
+its change-type evidence-book image reference if any, and a plain-language
+`professor_friendly_explanation` sentence for someone unfamiliar with the project's internals.
+
+**Inputs:** `block_id` (required, `E001`..`E200`), `lang`.
+
+**Output summary:** `ai_consensus_label`, `human_audit` (same shape as `block_evidence`'s field),
+`agreement_status`, `is_rule1_certainty_unit`, `is_rule1_pivotal_flip`, `is_interpretation_sensitive`,
+`why_it_matters`, `map_references` (titles of the relevant maps from `map_catalog()`),
+`evidence_book_reference`, `professor_friendly_explanation`.
+
+**Caveats beyond the standard 4:** every field is read from `block_evidence()`/`audit_status()`'s own
+underlying data — this tool computes nothing new.
+
+**Example questions:** "What's the defense-ready summary for E137?"; "Which blocks are still contested
+after the audit?" (call for each of `E056`, `E080`, `E120`, `E123`, `E180`).

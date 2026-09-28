@@ -21,6 +21,9 @@ software-focused repository and remains in the full thesis submission bundle ins
   imagery itself is never included here.
 - **Figures and generated plots** (`make_fig*.py` outputs) — thesis-chapter figures, not something the live
   agent needs at runtime.
+- **The executive defense map set** (`outputs/maps/*.pdf`, `*.png` from `make_maps.py`) — 5 static
+  cartographic PDFs/PNGs for a defense or review; `map_catalog()` in this repo's tool layer reports their
+  local path and checks `exists` at call time, but the files themselves stay in the full thesis/GIS bundle.
 
 ## Where to find them
 
