@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "geoagent-lebanon": {
+      "command": "python",
+      "args": ["C:/path/to/geoagent-lebanon/src/geoagent/mcp_server.py"]
+    }
+  }
+}

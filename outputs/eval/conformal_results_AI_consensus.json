@@ -1,0 +1,41 @@
+{
+  "labels_source": "consensus",
+  "provisional": false,
+  "n_used": 182,
+  "logreg_dino": {
+    "0.1": {
+      "splits": 200,
+      "target_coverage": 0.9,
+      "coverage_no_change": 0.926,
+      "coverage_change": 0.954,
+      "deferral_rate": 0.869,
+      "accuracy_when_decided": 0.5
+    },
+    "0.2": {
+      "splits": 200,
+      "target_coverage": 0.8,
+      "coverage_no_change": 0.832,
+      "coverage_change": 0.874,
+      "deferral_rate": 0.638,
+      "accuracy_when_decided": 0.55
+    }
+  },
+  "rf_spectral": {
+    "0.1": {
+      "splits": 200,
+      "target_coverage": 0.9,
+      "coverage_no_change": 0.926,
+      "coverage_change": 0.983,
+      "deferral_rate": 0.836,
+      "accuracy_when_decided": 0.638
+    },
+    "0.2": {
+      "splits": 200,
+      "target_coverage": 0.8,
+      "coverage_no_change": 0.825,
+      "coverage_change": 0.893,
+      "deferral_rate": 0.64,
+      "accuracy_when_decided": 0.557
+    }
+  }
+}

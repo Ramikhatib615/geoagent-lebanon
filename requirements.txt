@@ -1,0 +1,14 @@
+# GeoAgent-Lebanon tool layer, MCP server, CLI, and test suite are pure-Python
+# stdlib (json, csv, os, re, math, subprocess, threading, tempfile, unicodedata,
+# html, difflib, inspect) -- no third-party packages are required to run
+# src/geoagent/*.py or tests/*.py. Python 3.9+ is recommended.
+#
+# The only exception is qgis_agent_panel.py, which is a QGIS plugin panel and
+# must be run *inside* QGIS's own bundled Python (it imports `qgis.core`,
+# `qgis.utils`, `qgis.PyQt`) -- it is not installable via pip and is not part
+# of the MCP/CLI/test surface covered by this file.
+#
+# This file is kept (instead of a bare "no dependencies") so that
+# `pip install -r requirements.txt` is always a safe, harmless no-op, and so
+# that anyone auditing the repo has an explicit statement of the dependency
+# footprint rather than having to infer it from the source.

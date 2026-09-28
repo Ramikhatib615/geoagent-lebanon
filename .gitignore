@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Secrets / local config
+.env
+*.key
+*.pem
+credentials.json
+
+# Restricted / large imagery and caches -- never redistribute
+# (Esri World Imagery Wayback tiles and any raw satellite scenes are excluded
+#  by their provider's license; this repo ships only small, derived reference,
+#  evidence and audit files, never raw or high-resolution imagery)
+*.tif
+*.tiff
+*.img
+*.jp2
+*wayback*
+*hires*
+*esri*
+imagery/
+rasters/
+tiles/
+
+# Local ArcGIS Pro / QGIS caches and project working files
+*.gdb/
+*.aprx.bak
+*.qgz~
+*.gpkg-wal
+*.gpkg-shm
+.arcgisruntime/
+
+# Temporary / working outputs (evaluation runs, benchmarks, generated figures)
+outputs/agent_tool_audit_log.jsonl
+outputs/eval/change_types/*.png
+outputs/tmp/
+evaluation_runs/
+benchmark/
+*.log
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

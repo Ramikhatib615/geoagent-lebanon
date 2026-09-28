@@ -1,0 +1,116 @@
+{
+  "A_headline_auc": {
+    "reproduced_full_sample_auc_sanity_check": {
+      "spec": 0.7288,
+      "rf": 0.6573,
+      "dino": 0.606
+    },
+    "n_audited_decided": 75,
+    "audited_auc_point": {
+      "spec": 0.6159,
+      "rf": 0.4842,
+      "dino": 0.4823
+    },
+    "audited_auc_bootstrap_95ci": {
+      "spec": [
+        0.4536,
+        0.7319
+      ],
+      "rf": [
+        0.2977,
+        0.6214
+      ],
+      "dino": [
+        0.3647,
+        0.5875
+      ],
+      "gap_spec_minus_rf": [
+        -0.0743,
+        0.3377
+      ]
+    },
+    "gap_spec_minus_rf_point": 0.1317,
+    "fraction_bootstrap_reps_gap_le_0": 0.1053,
+    "stratum_breakdown_audited": {
+      "beirut|low": {
+        "n": 9,
+        "n_change": 1,
+        "spec_auc": 0.834,
+        "rf_auc": 0.695
+      },
+      "beirut|mid": {
+        "n": 6,
+        "n_change": 2,
+        "spec_auc": 0.196,
+        "rf_auc": 0.957
+      },
+      "beirut|high": {
+        "n": 6,
+        "n_change": 0,
+        "note": "insufficient variation for AUC"
+      },
+      "mount_lebanon|low": {
+        "n": 30,
+        "n_change": 4,
+        "spec_auc": 0.619,
+        "rf_auc": 0.374
+      },
+      "mount_lebanon|mid": {
+        "n": 18,
+        "n_change": 3,
+        "spec_auc": 0.624,
+        "rf_auc": 0.551
+      },
+      "mount_lebanon|high": {
+        "n": 6,
+        "n_change": 2,
+        "spec_auc": 0.5,
+        "rf_auc": 0.0
+      }
+    },
+    "n_boot": 3000
+  },
+  "B_area_recalibration": {
+    "frame_km2": 398.8,
+    "per_stratum_p_observed_change_182sample": {
+      "beirut|low": 0.0769,
+      "beirut|mid": 0.2222,
+      "beirut|high": 0.5357,
+      "mount_lebanon|low": 0.1389,
+      "mount_lebanon|mid": 0.3043,
+      "mount_lebanon|high": 0.3793
+    },
+    "per_stratum_false_change_rate_audit": {
+      "beirut|low": 0.5,
+      "beirut|mid": 0.3333,
+      "beirut|high": 1.0,
+      "mount_lebanon|low": 0.4,
+      "mount_lebanon|mid": 0.8,
+      "mount_lebanon|high": 0.6667
+    },
+    "per_stratum_missed_change_rate_audit": {
+      "beirut|low": 0.0,
+      "beirut|mid": 0.0,
+      "beirut|high": 0.0,
+      "mount_lebanon|low": 0.04,
+      "mount_lebanon|mid": 0.1538,
+      "mount_lebanon|high": 0.3333
+    },
+    "area_uncorrected_km2": 82.1,
+    "area_corrected_km2": 56.6,
+    "area_corrected_95ci": [
+      29.7,
+      87.9
+    ],
+    "area_beirut_corrected_km2": 3.9,
+    "area_beirut_95ci": [
+      0.6,
+      8.2
+    ],
+    "area_mount_lebanon_corrected_km2": 52.7,
+    "area_mount_lebanon_95ci": [
+      26.3,
+      83.5
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "n_audited": 80,
+  "n_decided": 75,
+  "n_interpretation_sensitive_excluded": 5,
+  "auditor_disagreement_rate_all80": 0.0625,
+  "auditor_error_estimate": 0.0312,
+  "rule2_ai_agreed_and_decided_n": 62,
+  "rule2_ai_agreed_mismatch_n": 11,
+  "rule2_ai_agreed_error_rate": 0.1774,
+  "rule2_gap_percentage_points": 14.62,
+  "rule2_fires_correlated_error": true,
+  "rule3_applicable": false,
+  "rule3_design_weighted_error_rate": 0.1766,
+  "rule3_bootstrap_95ci": [
+    0.1196,
+    0.2399
+  ],
+  "rule3_bootstrap_upper_95_bound": 0.2294,
+  "rule3_fires_consensus_accepted": false
+}
