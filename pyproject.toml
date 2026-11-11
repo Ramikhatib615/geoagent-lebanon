@@ -1,0 +1,17 @@
+[project]
+name = "geoagent-lebanon"
+version = "0.5.0"
+description = "A bilingual, read-only evidence agent (MCP server) for land-change screening in Lebanon"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Rami El Khatib" }]
+keywords = ["change detection", "Sentinel-2", "Model Context Protocol", "Arabic", "Lebanon"]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Ramikhatib615/geoagent-lebanon"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_agent_recovery.py", "test_extended_tools.py", "test_panel_logic.py", "test_tool_audit_log.py", "test_tools.py"]

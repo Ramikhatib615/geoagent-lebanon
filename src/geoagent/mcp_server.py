@@ -12,9 +12,11 @@ import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tools
 import tool_audit_log
+import human_ref_tools   # 11 read-only tools over the 300 human-reviewed blocks
+import osm_tools_v25     # 8 read-only historical-OpenStreetMap tools
 
 PROTOCOL = "2024-11-05"
-INFO = {"name": "geoagent-lebanon", "version": "0.2.0"}
+INFO = {"name": "geoagent-lebanon", "version": "0.5.0"}
 
 
 def tool_list():

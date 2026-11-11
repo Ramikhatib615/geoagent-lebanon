@@ -4,15 +4,15 @@
 
 Every one of the 200 reference blocks starts with an **AI-consensus label**: two independent AI
 annotators each label the block, and a third AI adjudicator resolves any disagreement. This is fast and
-covers the whole sample, but it is not human ground truth — it can be wrong, and the thesis's own
+covers the whole sample, but it is not human ground truth — it can be wrong, and the project's own
 sensitivity analysis showed that some of its headline findings depend on a small number of specific
-blocks. Rather than treat all 200 AI-consensus labels as equally reliable, the thesis's Appendix G runs a
-**blind, two-reviewer human audit** on exactly the blocks whose label could change a reported conclusion.
+blocks. Rather than treat all 200 AI-consensus labels as equally reliable, the project's Appendix G runs a
+**two-reviewer human audit (under a protocol that specified blinding)** on exactly the blocks whose label could change a reported conclusion.
 
 ## The 80-block decision-sensitive sample
 
 The audit does not cover all 200 blocks — only an **80-block subset** flagged as decision-sensitive by the
-thesis's sensitivity analysis (blocks where a label flip would plausibly change a reported number or
+project's sensitivity analysis (blocks where a label flip would plausibly change a reported number or
 ranking). This is a deliberate scoping choice, not a shortcut: auditing all 200 blind, by two reviewers,
 was not feasible, and the 80 were chosen specifically because they are where a labelling error would
 matter most.
@@ -23,8 +23,10 @@ for those 120 blocks.
 
 ## The audit protocol
 
-- **Blind:** each of the two human reviewers (Rami, Bassem) labels every block independently, without
+- **Blinding specified:** under the protocol, each of the two human reviewers labels every block independently, without
   seeing the AI-consensus label, the other reviewer's answer, or which "rule" (below) a block belongs to.
+  The audit sheets were prepared without the AI labels; no contemporaneous log records that blinding was
+  kept, so it is reported as specified, not verified.
 - **Two reviewers, reconciled:** `human_1` and `human_2` are recorded per block; where they agree, that is
   the `human_final` label. Reviewer agreement was 75/75 (100%) among the blocks a final label could be
   reached for.
@@ -40,7 +42,7 @@ for those 120 blocks.
 
 Before any block was reviewed, the audit protocol **pre-registered** exactly 13 blocks as "certainty
 units" (`outputs/eval/human_audit_key_R26.csv`, `certainty_unit == 1`) — fixed in advance specifically
-because the thesis's headline spectral-vs-random-forest ranking claim depends on them:
+because the project's headline spectral-vs-random-forest ranking claim depends on them:
 
 - **8 pivotal no-change blocks** that the ranking's validity requires to hold as `no_change`: E103, E094,
   E033, E098, E037, E107, E077, E168.
@@ -48,7 +50,7 @@ because the thesis's headline spectral-vs-random-forest ranking claim depends on
   E137, E199, E068, E117.
 
 Of these 13, **exactly 2 flipped** in the audit: **E137 and E199**, both from AI-consensus `change` to
-audited `no_change`. It is *this* flip — not the broader 17-block list above — that the thesis treats as
+audited `no_change`. It is *this* flip — not the broader 17-block list above — that the project report treats as
 the decisive evidence that the spectral-vs-random-forest AUC ranking is **not supported / audit-sensitive**
 (`audit_status().audited_headline_auc.conclusion == "not_supported_audit_sensitive"`), because the audited
 gap's 95% CI (−0.074, 0.338) crosses zero.
@@ -77,7 +79,7 @@ With the audit's corrected labels applied where they differ from AI-consensus:
 
 All of these numbers are read directly from `outputs/eval/appendix_g_rules23_R38.json` and
 `outputs/eval/audited_primary_reanalysis_R38.json` by `audit_status()` — nothing is recomputed in the tool
-layer, so the numbers here will always match whatever those result files (and the thesis itself) report.
+layer, so the numbers here will always match whatever those result files (and the project report itself) report.
 
 ## AI-level uncertainty vs. human-audit sensitivity — not the same signal
 

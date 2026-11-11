@@ -25,7 +25,7 @@
    │  JSON-RPC 2.0 /        │  │  no-LLM CLI            │  │  QGIS dock panel          │
    │  Model Context         │  │  (`list`,              │  │  (needs qgis.* — not      │
    │  Protocol server;      │  │   `<tool> "<args>"`)   │  │   installable via pip)    │
-   │  used by Claude        │  │                        │  │  via panel_logic.py +     │
+   │  used by MCP            │  │                        │  │  via panel_logic.py +     │
    │  Desktop et al.        │  │                        │  │  free_text_query.py       │
    └──────────┬─────────────┘  └──────────┬─────────────┘  └───────────┬─────────────┘
               │                           │                            │
@@ -51,8 +51,13 @@
   everywhere with no changes needed elsewhere. `load()` caches the parsed data files in memory after the
   first call; `_load_audit()`/`_load_certainty_units()`/`_load_json()` are guarded passthroughs for the
   audit result files (empty/`{}` if a file is absent, never an error).
+- **Extensions (`human_ref_tools.py`, `osm_hist_tools.py`, `osm_tools_v25.py`, `restricted_data.py`).** Importing
+  these modules registers 19 further read-only tools in the same `TOOLS` dict: 11 over the 300-block human
+  reference set and 8 over historical OpenStreetMap features. Their tables are not redistributed;
+  `restricted_data.guard` turns a missing file into a structured, bilingual answer
+  (see [data-availability.md](data-availability.md)).
 - **Interfaces.** Three independent ways to call the same tools: `mcp_server.py` (JSON-RPC 2.0 over
-  stdio, for MCP clients like Claude Desktop), `tool_cli.py` (a plain command-line entry point, no LLM or
+  stdio, for MCP clients such as desktop assistants), `tool_cli.py` (a plain command-line entry point, no LLM or
   MCP client required — used throughout this repo's own docs and tests), and `qgis_agent_panel.py` (a QGIS
   dock widget, for use inside QGIS itself; requires QGIS's own Python and is not testable standalone).
 - **Free-text parsing (`free_text_query.py`, `panel_logic.py`).** Bilingual (Arabic/English) query parsing

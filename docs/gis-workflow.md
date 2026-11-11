@@ -1,7 +1,7 @@
 # GIS workflow (ArcGIS Pro side)
 
 This repository ships the AI-agent / MCP tool layer only. The GIS work that produced and interpreted the
-underlying reference and audit data lives in the full thesis submission bundle (ArcGIS Pro project files,
+underlying reference and audit data lives in the full project submission bundle (ArcGIS Pro project files,
 map packages, and high-resolution imagery), not here. This document explains how that GIS work relates to
 the data this repo does include, so a reader of the code understands where the numbers ultimately come
 from.
@@ -16,7 +16,7 @@ from.
   and after the audit.
 - **Audit maps:** map layouts specific to the 80-block audit sample, styled to distinguish the 13 Rule 1
   certainty units, the 5 interpretation-sensitive blocks, and the blocks whose label flipped, for the human
-  reviewers to work from during the blind review.
+  reviewers to work from during the review.
 - **High-resolution imagery as an interpretation aid only:** Esri World Imagery (including Wayback
   historical imagery) was used to help human reviewers interpret ambiguous blocks during the audit — it
   was never used to generate or override an AI-consensus label programmatically, and it is not
@@ -24,7 +24,7 @@ from.
 
 ## Map package and outputs
 
-The ArcGIS Pro project (`.aprx`), its map packages, and rendered map exports are part of the full thesis
+The ArcGIS Pro project (`.aprx`), its map packages, and rendered map exports are part of the full project report
 submission bundle, not this repository. What this repository's `outputs/eval/` directory contains instead
 are the **small, derived, already-finalized results** of that GIS/audit work — block geometry
 (`eval_reference.geojson`), the sampling design (`eval_design.csv`), change-type crop index
@@ -44,7 +44,7 @@ repository. Its pure logic (parsing, formatting, choice-population) is exercised
 
 ## Restricted imagery is not redistributed here
 
-Sentinel-2 composites and Esri World Imagery / Wayback tiles are used throughout the thesis's GIS workflow
+Sentinel-2 composites and Esri World Imagery / Wayback tiles are used throughout the project's GIS workflow
 under their respective providers' licenses, which do not permit redistribution. This repository contains
 no raw or high-resolution imagery, no imagery tiles or caches, and no ArcGIS project files — only the
 small, derived CSV/JSON/GeoJSON result files listed in [data/README.md](../data/README.md). See

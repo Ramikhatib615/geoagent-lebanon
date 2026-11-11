@@ -373,11 +373,11 @@ def block_evidence(block_id, lang="auto"):
             "reviewer_1": aud.get("r1_reviewer") or None,
             "reviewer_2": aud.get("r2_reviewer") or None,
             "differs_from_ai_consensus_label": differs,
-            "note": ("This block is part of the blind two-reviewer human audit (Appendix G). human_final is the audited label; "
+            "note": ("This block is part of the two-reviewer human audit (protocol specified blinding) (Appendix G). human_final is the audited label; "
                      "it can differ from the AI-consensus 'label' field above -- when it does, the audited label is the one the "
-                     "thesis treats as primary from Section 5.14 onward." if lang != "ar" else
-                     "هذه الكتلة ضمن التدقيق البشري الأعمى بمراجعَين (الملحق G). human_final هو التصنيف بعد التدقيق، وقد يختلف عن "
-                     "حقل «label» أعلاه (تصنيف إجماع الذكاء الاصطناعي)؛ وعند الاختلاف، فإن التصنيف المدقَّق هو المعتمد اعتباراً من القسم 5.14."),
+                     "project report treats as primary from Section 5.3.4 onward." if lang != "ar" else
+                     "هذه الكتلة ضمن التدقيق البشري بمراجعَين (وفق بروتوكول ينصّ على التعمية) (الملحق G). human_final هو التصنيف بعد التدقيق، وقد يختلف عن "
+                     "حقل «label» أعلاه (تصنيف إجماع الذكاء الاصطناعي)؛ وعند الاختلاف، فإن التصنيف المدقَّق هو المعتمد اعتباراً من القسم 5.3.4."),
         }
     else:
         b["human_audit"] = {
@@ -594,7 +594,7 @@ def blocks_near(lat, lon, radius_km=1.0, label="", limit=50, lang="auto"):
 
 
 def audit_status(lang="auto"):
-    """Report the completed Appendix G blind two-reviewer human audit: how many of the 80 decision-sensitive
+    """Report the completed Appendix G two-reviewer human audit (protocol specified blinding): how many of the 80 decision-sensitive
     blocks were decided, reviewer agreement, which blocks' final label differs from their AI-consensus label,
     the correlated-error test (Rule 2) result, and the resulting audited re-analysis (headline spectral-vs-random-
     forest AUC comparison and the recalibrated changed-area estimate). Every value is read from the audit's own
@@ -620,7 +620,7 @@ def audit_status(lang="auto"):
     gap_point_r = round(gap_point, 3) if isinstance(gap_point, (int, float)) else gap_point
     gap_ci_r = [round(x, 3) for x in gap_ci] if gap_ci else None
     area_corr, area_ci, area_uncorr = area.get("area_corrected_km2"), area.get("area_corrected_95ci"), area.get("area_uncorrected_km2")
-    en = ("The Appendix G blind two-reviewer human audit is complete: %d/%d blocks decided (%d left interpretation-sensitive, undecided); "
+    en = ("The Appendix G two-reviewer human audit (protocol specified blinding) is complete: %d/%d blocks decided (%d left interpretation-sensitive, undecided); "
           "reviewers agreed on %d/%d final labels. %d block(s) overall differ from their AI-consensus label: %s. Of the 13 pre-registered "
           "'certainty units' (Rule 1: 8 pivotal no-change blocks plus 5 Mount Lebanon-low change blocks), %d flipped: %s -- it is this Rule 1 "
           "flip, not the broader 17-block list, that drives the headline finding. The correlated-error test %s (Rule 2). The audited "
@@ -629,7 +629,7 @@ def audit_status(lang="auto"):
         len(decided), len(aud), len(interp_sensitive), agree_n, len(decided), len(flipped), ", ".join(flipped) or "none",
         len(cu_flipped), ", ".join(cu_flipped) or "none",
         "fired" if rules.get("rule2_fires_correlated_error") else "did not fire", gap_point_r, gap_ci_r, area_corr, area_ci, area_uncorr)
-    ar = ("التدقيق البشري الأعمى بمراجعَين (الملحق G) مكتمل: اتُّخذ قرار في %d من أصل %d كتلة (بقيت %d كتلة حسّاسة للتأويل بلا قرار)؛ "
+    ar = ("التدقيق البشري بمراجعَين (وفق بروتوكول ينصّ على التعمية) (الملحق G) مكتمل: اتُّخذ قرار في %d من أصل %d كتلة (بقيت %d كتلة حسّاسة للتأويل بلا قرار)؛ "
           "اتفق المراجعان على %d من %d تصنيف نهائي. اختلف تصنيف %d كتلة إجمالاً عن تصنيفها بإجماع الذكاء الاصطناعي: %s. ومن أصل 13 «وحدة يقين» "
           "محدَّدة مسبقاً (القاعدة 1: 8 كتل محورية بلا تغيّر و5 كتل تغيّر في جبل لبنان-منخفض)، انقلبت %d: %s -- وهذا الانقلاب بحسب القاعدة 1، لا "
           "القائمة الأوسع، هو ما يقود النتيجة الرئيسية. اختبار الخطأ المترابط (القاعدة 2) %s. فجوة AUC المدقَّقة بين النتيجة الطيفية والغابة "
@@ -671,7 +671,7 @@ MAPS_DIR = os.path.join(ROOT, "outputs", "maps")
 
 # R44 (2026-09-28): the "executive defense map set" -- 5 static PDF/PNG maps rendered once from these same
 # result files (make_maps.py, repo root) for use in a defense/demo. The files themselves are part of the full
-# local GIS/thesis bundle, not the packaged GitHub repo (see data/README.md there) -- map_catalog() only ever
+# local project GIS bundle, not the packaged GitHub repo (see data/README.md there) -- map_catalog() only ever
 # reports their local path and whether that path currently exists; it never claims a file is present that
 # os.path.exists() cannot confirm at call time.
 _MAP_CATALOG = [
@@ -679,7 +679,7 @@ _MAP_CATALOG = [
      "title_en": "Study Area & Sampling Frame", "title_ar": "منطقة الدراسة وإطار العيّنة",
      "shows_en": "All 200 stratified 420 m reference blocks across the two AOIs (Beirut, Mount Lebanon), coloured by AOI.",
      "shows_ar": "كل الكتل المرجعية الـ200 (420 م) الموزّعة طبقياً على منطقتي بيروت وجبل لبنان، ملوّنة حسب المنطقة.",
-     "thesis_section": "Section 3.2 (Sampling Design)",
+     "report_section": "Section 3.2 (sampling design)",
      "use_when_en": "Opening the defense: establishing where the study areas are and how the 200-block sample was drawn, before any results.",
      "use_when_ar": "بداية المناقشة: لتوضيح مكان منطقتي الدراسة وكيفية سحب عيّنة الـ200 كتلة، قبل عرض أي نتائج.",
      "talking_point_en": "A stratified sample of 200 blocks (100 per AOI) drawn by land-use stratum, not a census of either area.",
@@ -690,7 +690,7 @@ _MAP_CATALOG = [
      "title_en": "AI-Consensus Change Labels", "title_ar": "تصنيفات التغيّر بإجماع الذكاء الاصطناعي",
      "shows_en": "The original, pre-audit AI-consensus label (change / no_change / uncertain) for all 200 blocks.",
      "shows_ar": "التصنيف الأصلي (قبل التدقيق) بإجماع الذكاء الاصطناعي (تغيّر/لا تغيّر/غير مؤكد) لكل الكتل الـ200.",
-     "thesis_section": "Chapters 3–4 (Data & Methods: AI-consensus labelling)",
+     "report_section": "Chapters 3–4 (data and methods: AI-consensus labelling)",
      "use_when_en": "Explaining how blocks were first labelled: two independent AI annotators plus adjudication, before any human audit.",
      "use_when_ar": "لشرح كيفية تصنيف الكتل أول مرة: مصنّفان آليان مستقلان مع حسم الخلاف، قبل أي تدقيق بشري.",
      "talking_point_en": "47 change, 135 no_change, 18 uncertain -- AI-consensus, i.e. candidate reference labels, not yet human-verified.",
@@ -699,9 +699,9 @@ _MAP_CATALOG = [
      "caveat_ar": "تصنيفات إجماع الذكاء الاصطناعي ليست حقيقة ميدانية بشرية خارج العيّنة المدقَّقة من 80 كتلة (انظر الخريطة 3)."},
     {"id": "human_audit_result", "stub": "03_human_audit_result",
      "title_en": "Human Audit Result (Appendix G)", "title_ar": "نتيجة التدقيق البشري (الملحق G)",
-     "shows_en": "The 80 decision-sensitive blocks audited blind by two reviewers: agreed no_change, agreed change, the 5 contested blocks, and E137/E199 highlighted as the decisive Rule 1 flips.",
+     "shows_en": "The 80 decision-sensitive blocks audited by two reviewers under a protocol that specified blinding: agreed no_change, agreed change, the 5 contested blocks, and E137/E199 highlighted as the decisive Rule 1 flips.",
      "shows_ar": "الكتل الثمانون الحسّاسة للقرار والمدقَّقة بشكل أعمى من مراجعَين: اتفاق على لا تغيّر، اتفاق على تغيّر، الكتل الخمس المتنازع عليها، مع إبراز E137 وE199 كانقلابَي القاعدة 1 الحاسمَين.",
-     "thesis_section": "Section 5.14 (Audit Result) and Appendix G (Human Audit Protocol)",
+     "report_section": "Section 5.3.4 (audit result) and Appendix G (audit protocol)",
      "use_when_en": "Explaining Appendix G and E137/E199 -- the centrepiece of the audit story.",
      "use_when_ar": "لشرح الملحق G وE137 وE199 -- جوهر قصة التدقيق.",
      "talking_point_en": "The audit confirmed 75/80 labels (100% reviewer agreement on decided blocks) and flagged E137/E199 as decisive flips.",
@@ -712,7 +712,7 @@ _MAP_CATALOG = [
      "title_en": "Operational Deferral Map", "title_ar": "خريطة الإحالة التشغيلية",
      "shows_en": "Which blocks a deployed pipeline would decide automatically (change / no_change) versus send to a human reviewer, per the same rule as uncertainty().",
      "shows_ar": "الكتل التي يقرّرها خط أنابيب مُشغَّل تلقائياً (تغيّر/لا تغيّر) مقابل ما يُحال إلى مراجع بشري، وفق نفس قاعدة uncertainty().",
-     "thesis_section": "Section 5.15 (Operational Map and Survey Design)",
+     "report_section": "Section 5.3.5 (operational map and survey design)",
      "use_when_en": "Explaining how the system would run operationally day to day, and what fraction of decisions need a human.",
      "use_when_ar": "لشرح كيفية عمل النظام تشغيلياً يومياً، وما نسبة القرارات التي تحتاج مراجعة بشرية.",
      "talking_point_en": "43 of 200 blocks (about a fifth) would be deferred to a human reviewer under this rule -- not a fully autonomous system.",
@@ -723,7 +723,7 @@ _MAP_CATALOG = [
      "title_en": "Audit-Corrected Interpretation", "title_ar": "التفسير المصحَّح بعد التدقيق",
      "shows_en": "The headline audited result: changed area corrected to 56.6 km^2 (was 82.1 km^2 uncorrected), the 17 audit-sensitive (flipped) blocks, and E137/E199 as the decisive Rule 1 pair.",
      "shows_ar": "النتيجة الرئيسية بعد التدقيق: المساحة المتغيّرة مصحَّحة إلى 56.6 كم² (كانت 82.1 كم² قبل التصحيح)، والكتل السبع عشرة الحسّاسة للتدقيق (المنقلبة)، وE137 وE199 كزوج القاعدة 1 الحاسم.",
-     "thesis_section": "Sections 5.13–5.14 and 6.6 (Audited Re-analysis; What the Headline Rests On)",
+     "report_section": "Sections 5.3.4 and 6.6 (audited re-analysis; what the headline comparison rests on)",
      "use_when_en": "Closing the results narrative: what changed once the audit was applied, and why the spectral-vs-random-forest ranking is now audit-sensitive.",
      "use_when_ar": "لختام سرد النتائج: ما الذي تغيّر بعد تطبيق التدقيق، ولماذا أصبح ترتيب الطيفي مقابل الغابة العشوائية حسّاساً للتدقيق.",
      "talking_point_en": "Two blocks (E137, E199) flipping is what makes the headline model-ranking claim not supported / audit-sensitive.",
@@ -735,8 +735,8 @@ _MAP_CATALOG = [
 
 def map_catalog(lang="auto"):
     """List the 5 static "executive defense map" PDFs/PNGs (make_maps.py output): title, local path, what each
-    map shows, the thesis section it illustrates, when to open it in a defense, its one-line talking point, and
-    its caveat. The map files themselves live in the full local GIS/thesis bundle, not in the packaged GitHub
+    map shows, the report section it illustrates, when to open it in a defense, its one-line talking point, and
+    its caveat. The map files themselves live in the full local project GIS bundle, not in the packaged GitHub
     repository (see data/README.md there) -- `exists` reports whether this tool can currently see the file at
     that path, checked fresh on every call; nothing about a map's content is asserted beyond that."""
     lang = _lang(lang, "")
@@ -748,14 +748,14 @@ def map_catalog(lang="auto"):
             "id": m["id"], "title": m["title_ar"] if lang == "ar" else m["title_en"],
             "path_pdf": pdf, "path_png": png, "exists": os.path.exists(pdf) or os.path.exists(png),
             "what_it_shows": m["shows_ar"] if lang == "ar" else m["shows_en"],
-            "thesis_section": m["thesis_section"],
+            "report_section": m["report_section"],
             "use_when": m["use_when_ar"] if lang == "ar" else m["use_when_en"],
             "talking_point": m["talking_point_ar"] if lang == "ar" else m["talking_point_en"],
             "caveat": m["caveat_ar"] if lang == "ar" else m["caveat_en"],
         })
     return {
         "found": True, "maps_root": MAPS_DIR, "n_maps": len(maps), "maps": maps,
-        "note": ("These map files live in the full local GIS/thesis bundle, not in the packaged GitHub repository; "
+        "note": ("These map files live in the full local project GIS bundle, not in the packaged GitHub repository; "
                  "the paths above only resolve on the machine that holds that bundle." if lang != "ar" else
                  "ملفات هذه الخرائط موجودة ضمن حزمة الأطروحة/نظم المعلومات الجغرافية المحلية الكاملة، وليست ضمن مستودع GitHub "
                  "المُعبَّأ؛ المسارات أعلاه تعمل فقط على الجهاز الذي يحتفظ بتلك الحزمة."),
@@ -892,7 +892,7 @@ def block_demo(block_id, lang="auto"):
     else:
         prof = "Block %s, near %s: the AI pipeline labelled it '%s'." % (i, place, b["label"])
         if aud:
-            prof += " After the blind human audit, it is %s." % agreement_status
+            prof += " After the two-reviewer human audit, it is %s." % agreement_status
         else:
             prof += " This block was not part of the human audit, so its label remains a candidate, not confirmed."
         prof += " " + why
@@ -927,12 +927,12 @@ TOOLS = {
                     {"lat": {"type": "number"}, "lon": {"type": "number"}, "radius_km": {"type": "number"}, "label": {"type": "string"}, "limit": {"type": "integer"}, "lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, ["lat", "lon"]),
     "area_estimate": (area_estimate, "Design-weighted share of blocks with change in an AOI (beirut / mount_lebanon) and/or governorate with a stratified-bootstrap 95% interval.",
                       {"aoi": {"type": "string"}, "governorate": {"type": "string"}, "lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
-    "audit_status": (audit_status, "Report the completed Appendix G blind two-reviewer human audit: sample size, agreement, which blocks' final label "
+    "audit_status": (audit_status, "Report the completed Appendix G two-reviewer human audit (protocol specified blinding): sample size, agreement, which blocks' final label "
                      "differs from the AI-consensus label, the correlated-error test result, and the resulting audited re-analysis (headline AUC "
                      "comparison and the recalibrated changed-area estimate). All values are read from the audit's own result files; nothing is recomputed.",
                      {"lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
-    "map_catalog": (map_catalog, "List the 5 static executive defense maps (PDF/PNG): title, local path, what each shows, its thesis section, "
-                    "when to open it in a defense, its talking point, and its caveat. Map files live in the full local GIS/thesis bundle, not the "
+    "map_catalog": (map_catalog, "List the 5 static executive defense maps (PDF/PNG): title, local path, what each shows, its report section, "
+                    "when to open it in a defense, its talking point, and its caveat. Map files live in the full local project GIS bundle, not the "
                     "packaged GitHub repo; `exists` is checked fresh on every call.",
                     {"lang": {"type": "string", "enum": ["auto", "en", "ar"]}}, []),
     "block_demo": (block_demo, "Defense-ready summary for one block id: AI-consensus label, human-audit label and agreement status if audited, "

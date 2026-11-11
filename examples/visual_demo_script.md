@@ -2,8 +2,8 @@
 
 A timed script for demonstrating the agent visually to someone who has not lived inside this project —
 a professor, a committee member, a reviewer. Pairs each step with what to show and what to say. Run
-against a live MCP client (e.g. Claude Desktop, see [README.md](../README.md#claude-desktop-mcp-setup))
-or `tool_cli.py`; open the map file named at each step from the full local thesis/GIS bundle (see
+against a live MCP client (see [README.md](../README.md#mcp-client-setup))
+or `tool_cli.py`; open the map file named at each step from the full local project GIS bundle (see
 [docs/visual-demo.md](../docs/visual-demo.md) for why the map files themselves are not in this repo).
 Total run time: about 5 minutes.
 
@@ -17,7 +17,7 @@ Total run time: about 5 minutes.
 in Mount Lebanon, drawn by land-use stratum. Everything the agent says is grounded in these 200 blocks —
 nothing outside them."
 
-**Tool call:** `map_catalog()` — point out `thesis_section: "Section 3.2 (Sampling Design)"`.
+**Tool call:** `map_catalog()` — point out `report_section: "Section 3.2 (sampling design)"`.
 
 ---
 
@@ -37,8 +37,8 @@ change, 18 are uncertain. This is a candidate label, not yet human-verified."
 
 **Show:** Map 3 — Human Audit Result, with E137 and E199 highlighted in bright blue with a star.
 
-**Say:** "80 of the 200 blocks — the ones the thesis's own sensitivity analysis flagged as
-decision-sensitive — went through a blind, two-reviewer human audit. 75 were decided; reviewers agreed on
+**Say:** "80 of the 200 blocks — the ones the project's own sensitivity analysis flagged as
+decision-sensitive — went through a two-reviewer human audit (under a protocol that specified blinding). 75 were decided; reviewers agreed on
 every one of those 75. Two blocks, E137 and E199, both AI-consensus 'change', were both audited down to
 'no change' by both reviewers. These two are pre-registered 'Rule 1 certainty units' — fixed before any
 review started — and this pair flipping is the whole reason a headline model-ranking claim later becomes

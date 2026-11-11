@@ -92,7 +92,7 @@ $ python src/geoagent/tool_cli.py audit_status "{}"
   "beirut_corrected": 3.9,
   "mount_lebanon_corrected": 52.7
  },
- "message": "The Appendix G blind two-reviewer human audit is complete: 75/80 blocks decided (5 left interpretation-sensitive, undecided); reviewers agreed on 75/75 final labels. 17 block(s) overall differ from their AI-consensus label: E002, E015, E020, E060, E065, E078, E087, E105, E137, E147, E148, E170, E182, E193, E194, E197, E199. Of the 13 pre-registered 'certainty units' (Rule 1: 8 pivotal no-change blocks plus 5 Mount Lebanon-low change blocks), 2 flipped: E137, E199 -- it is this Rule 1 flip, not the broader 17-block list, that drives the headline finding. The correlated-error test fired (Rule 2). The audited spectral-vs-random-forest AUC gap is 0.132, 95% CI [-0.074, 0.338] -- reported as not supported / audit-sensitive, not a confirmed win for either model. The audited, per-stratum-corrected changed area is 56.6 km^2 (95% CI [29.7, 87.9]), revised down from the uncorrected 82.1 km^2.",
+ "message": "The Appendix G two-reviewer human audit (protocol specified blinding) is complete: 75/80 blocks decided (5 left interpretation-sensitive, undecided); reviewers agreed on 75/75 final labels. 17 block(s) overall differ from their AI-consensus label: E002, E015, E020, E060, E065, E078, E087, E105, E137, E147, E148, E170, E182, E193, E194, E197, E199. Of the 13 pre-registered 'certainty units' (Rule 1: 8 pivotal no-change blocks plus 5 Mount Lebanon-low change blocks), 2 flipped: E137, E199 -- it is this Rule 1 flip, not the broader 17-block list, that drives the headline finding. The correlated-error test fired (Rule 2). The audited spectral-vs-random-forest AUC gap is 0.132, 95% CI [-0.074, 0.338] -- reported as not supported / audit-sensitive, not a confirmed win for either model. The audited, per-stratum-corrected changed area is 56.6 km^2 (95% CI [29.7, 87.9]), revised down from the uncorrected 82.1 km^2.",
  "note": "This audit covers only the 80-block decision-sensitive subset, not the full 200-block sample.",
  "caveats": [
   "Blocks are a stratified sample of 420 m blocks in two AOIs (Beirut, Mount Lebanon), not full coverage of any place.",
@@ -148,10 +148,10 @@ $ python src/geoagent/tool_cli.py block_evidence "{\"block_id\": \"E137\"}"
   "human_2": "no_change",
   "human_final": "no_change",
   "interpretation_sensitive": false,
-  "reviewer_1": "Rami",
-  "reviewer_2": "Bassem",
+  "reviewer_1": "Reviewer 1",
+  "reviewer_2": "Reviewer 2",
   "differs_from_ai_consensus_label": true,
-  "note": "This block is part of the blind two-reviewer human audit (Appendix G). human_final is the audited label; it can differ from the AI-consensus 'label' field above -- when it does, the audited label is the one the thesis treats as primary from Section 5.14 onward."
+  "note": "This block is part of the two-reviewer human audit (protocol specified blinding) (Appendix G). human_final is the audited label; it can differ from the AI-consensus 'label' field above -- when it does, the audited label is the one the project report treats as primary from Section 5.3.4 onward."
  },
  "caveats": [
   "Blocks are a stratified sample of 420 m blocks in two AOIs (Beirut, Mount Lebanon), not full coverage of any place.",

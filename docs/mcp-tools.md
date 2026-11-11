@@ -1,6 +1,6 @@
 # MCP tools reference
 
-All 11 tools are exposed over the Model Context Protocol by `src/geoagent/mcp_server.py`, and directly as
+The server lists 30 tools. The 11 AI-consensus and audit tools are documented in detail first; the 11 human-reference and 8 historical-OpenStreetMap tools follow in the [extended tool reference](#extended-tool-reference). All tools are exposed over the Model Context Protocol by `src/geoagent/mcp_server.py`, and directly as
 Python functions / a CLI by `src/geoagent/tools.py` / `src/geoagent/tool_cli.py`. The `TOOLS` dict in
 `tools.py` is the single source of truth: both the MCP server's `tools/list` and `tool_cli.py list`
 iterate it dynamically, so this list is always exactly what a running server or the CLI will report.
@@ -62,7 +62,7 @@ differs_from_ai_consensus_label, note}` — `audited: false` with an explanatory
 blocks outside the audit sample.
 
 **Caveats beyond the standard 4:** `human_audit.note` states explicitly whether this block's label is
-AI-consensus only or has been through the blind human audit, and which one the thesis treats as primary
+AI-consensus only or has been through the two-reviewer human audit, and which one the project report treats as primary
 when they differ.
 
 **Example question:** "What happened to E137 and E199?" / "شو صار بـ E137 و E199؟"
@@ -159,7 +159,7 @@ For the audit-corrected version of this number, use `audit_status` instead.
 **Output summary:** `share_change_weighted`, `ci95_bootstrap` (2-element interval).
 
 **Caveats beyond the standard 4:** this is the raw, **uncorrected** estimate; `audit_status`'s
-`audited_area_estimate_km2` is the one the thesis treats as primary from Section 5.14 onward.
+`audited_area_estimate_km2` is the one the project report treats as primary from Section 5.3.4 onward.
 
 **Example question:** "How much changed area was estimated?" (pre-audit); "...after the audit?"
 (`audit_status`).
@@ -168,7 +168,7 @@ For the audit-corrected version of this number, use `audit_status` instead.
 
 ## `audit_status`
 
-**Purpose:** the completed Appendix G blind two-reviewer human audit in one call — sample size and
+**Purpose:** the completed Appendix G two-reviewer human audit (protocol specified blinding) in one call — sample size and
 agreement, which blocks' audited label differs from the AI-consensus label (both the broad list and the
 13 pre-registered "Rule 1 certainty units"), the correlated-error test (Rule 2) result, and the resulting
 audited re-analysis (headline spectral-vs-random-forest-vs-DINOv2 AUC comparison and the recalibrated
@@ -199,15 +199,15 @@ See [docs/audit-methodology.md](audit-methodology.md) for the full audit protoco
 ## `map_catalog`
 
 **Purpose:** list the 5 static "executive defense map" PDFs/PNGs (generated once by `make_maps.py` in the
-full thesis/GIS bundle) — title, local path, what each map shows, the thesis section it illustrates, when
+full project GIS bundle) — title, local path, what each map shows, the report section it illustrates, when
 to open it in a defense, its one-line talking point, and its caveat. See
 [docs/visual-demo.md](visual-demo.md) for the full map set and defense flow.
 
 **Inputs:** `lang` only.
 
 **Output summary:** `n_maps` (5), `maps` (list of `{id, title, path_pdf, path_png, exists, what_it_shows,
-thesis_section, use_when, talking_point, caveat}`, in defense order), a `note` that the map files
-themselves live in the full local thesis/GIS bundle, not this repository.
+report_section, use_when, talking_point, caveat}`, in defense order), a `note` that the map files
+themselves live in the full local project GIS bundle, not this repository.
 
 **Caveats beyond the standard 4:** `exists` is checked fresh against the local filesystem on every call —
 it is `false` wherever the map files are not present (e.g. running this tool layer from this repository
@@ -238,3 +238,46 @@ underlying data — this tool computes nothing new.
 
 **Example questions:** "What's the defense-ready summary for E137?"; "Which blocks are still contested
 after the audit?" (call for each of `E056`, `E080`, `E120`, `E123`, `E180`).
+
+---
+
+## Extended tool reference
+
+These 19 tools read two tables that are not redistributed with this repository
+(see [data-availability.md](data-availability.md)). Without the tables they return a structured
+"dataset not available" answer. All are read-only and accept `lang` = `auto`, `en` or `ar`.
+
+### Human reference tools (300 blocks)
+
+The 300 blocks were labelled by two human reviewers with an adjudicator. They are reference labels at
+moderate agreement (kappa 0.65), not ground truth, and they are kept separate from the 200 AI-consensus blocks.
+
+| Tool | Purpose | Arguments (required in bold) |
+|---|---|---|
+| `human_block_lookup` | Look up one HUMAN-reviewed block (of 300): human reference label, label class, reviewer agreement, model scores. Read-only. Not AI-consensus. | **block_id**, lang |
+| `human_label_provenance` | State who/what produced a human label and what is NOT documented (names, dates, blindness). Read-only. | **block_id**, lang |
+| `human_reviewer_agreement` | Counts by label class (concordant / adjudicated / unresolved) and reported kappa, optionally per governorate. | governorate, lang |
+| `human_unresolved` | List the 13 blocks the two-reviewer process could not resolve and their later single-rater labels, flagged as the weakest human class. | limit, lang |
+| `model_vs_human` | Compare spectral and DINOv2 score decisions with the human label for one block (percentile and prevalence-matched display rule). | **block_id**, lang |
+| `human_regional_performance` | AUROC of spectral and DINOv2 scores against human labels, nationwide or per governorate, with post hoc warnings; refuses when a class has fewer than 5 blocks. include_single_rater=false excludes the 13 single-rater labels. | governorate, include_single_rater, lang |
+| `building_footprint_evidence` | OSM 2022 building count for a human-reviewed block with completeness warning; zero is not proof of absence. | **block_id**, lang |
+| `damage_claim_check` | Checks whether a damage claim can be supported by the project data (it cannot) and says what is needed. | block_id, place, lang |
+| `human_query_blocks` | Count human-reviewed blocks by governorate, label (change/no_change), label_class, OSM-zero flag and flagged-cadastral-unit membership, with optional group_by, and optional ranking (rank_by spectral score, DINOv2 score or 2022 OSM building count; top_n). Unweighted; read-only. | governorate, label, label_class, osm_zero, group_by, in_flagged_units, rank_by, top_n, lang |
+| `human_blocks_near` | Human-reviewed blocks within radius_km of a WGS84 point (validates Lebanon bounds), nearest first, with labels and classes. | **lat**, **lon**, radius_km, label, limit, lang |
+| `human_dataset_scope` | Scope, counts and limitations of the 300-block human reference set; states that no write tool exists. | lang |
+
+### Historical OpenStreetMap tools
+
+Every answer carries the rule that a change in what is mapped is not a change in what is built, and that
+zero mapped footprints does not verify a building-free block.
+
+| Tool | Purpose | Arguments (required in bold) |
+|---|---|---|
+| `osm_block_history` | Mapped OSM building history of one reviewed block (2018-09-15, 2025-09-15, 2022): counts, covered area, transition categories, with the mapping-vs-physical caveat. Read-only. | **block_id**, lang |
+| `osm_mapping_vs_physical` | Explains why an OSM mapping change is not a physical building change and what evidence would be needed. Read-only. | lang |
+| `osm_building_free_status` | Status of a block with zero mapped footprints: never 'building-free' without imagery review. Read-only. | **block_id**, lang |
+| `osm_vs_scores` | Blocks where the OSM change and the spectral score disagree. kind: osm_increase_low_spectral / high_spectral_no_osm_change. | **kind**, lang, n |
+| `osm_region_coverage` | Mapped-footprint counts and growth by governorate, 2018 vs 2025 (mapping imbalance, not construction). Read-only. | lang |
+| `osm_contradictions` | Blocks where OSM evidence and the human label or model scores contradict each other. Read-only. | lang, n |
+| `osm_physical_verification` | Physical verification status of OSM building changes: always 'pending' (no dated imagery review exists). Read-only. | block_id, lang |
+| `osm_zero_footprint_summary` | Counts of the 300 reviewed blocks with zero MAPPED OSM footprints in 2018, 2022, 2025 and in all three (optionally by governorate). Never 'building-free'. Read-only. | lang, governorate |

@@ -3,7 +3,7 @@
 # Docks a panel that calls the SAME 7 read-only tools the language-model agent uses (tools.py), in English or Arabic,
 # shows the answer with its caveats, and selects the returned blocks on the map. It contains no language model:
 # the free-text box (R40) is a rule-based parser (free_text_query.py) that only proposes which of the same 7
-# tools to fill and run -- for a full LLM agent, use Claude Desktop with the "geoagent-lebanon" server instead.
+# tools to fill and run -- for a full LLM agent, use an MCP client with the "geoagent-lebanon" server instead.
 # A live-stats box shows the reference sample's totals and the current map selection, updating as it changes.
 # The only edit this panel ever makes is writing
 # the reviewer's OWN spot-check value (agree/disagree/unsure) to the rami_check field, on explicit Save, for whatever
@@ -65,7 +65,7 @@ class Panel(QWidget):
         v = QVBoxLayout(self)
         title = QLabel("<b>GeoAgent-Lebanon \u2013 agent tool layer</b> <span style='color:#777'>(%s)</span>" % VERSION); v.addWidget(title)
         note = QLabel("Same read-only tools as the AI agent (EN/AR) \u00b7 labels are AI consensus, not ground truth \u00b7 blocks are a sample")
-        note.setStyleSheet("color:#555"); note.setToolTip("The free-text box below and Claude Desktop's 'geoagent-lebanon' server both dispatch the same 7 tools; the box below runs entirely in this panel, no language model involved."); v.addWidget(note)
+        note.setStyleSheet("color:#555"); note.setToolTip("The free-text box below and the 'geoagent-lebanon' MCP server both dispatch the same 7 tools; the box below runs entirely in this panel, no language model involved."); v.addWidget(note)
         stats_box = QFrame(); stats_box.setFrameShape(QFrame.StyledPanel); stats_v = QVBoxLayout(stats_box); stats_v.setContentsMargins(6, 4, 6, 4)
         self.stats_lbl = QLabel(""); self.stats_lbl.setWordWrap(True); self.stats_lbl.setStyleSheet("color:#333"); self.stats_lbl.setTextFormat(Qt.RichText)
         stats_v.addWidget(self.stats_lbl); v.addWidget(stats_box)

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "GeoAgent-Lebanon: a bilingual, read-only evidence agent for land-change screening in Lebanon"
+type: software
+authors:
+  - family-names: "El Khatib"
+    given-names: "Rami"
+    affiliation: "Lebanese American University"
+version: "0.5.0"
+date-released: "2026-11-11"
+license: MIT
+repository-code: "https://github.com/Ramikhatib615/geoagent-lebanon"
+keywords:
+  - change detection
+  - Sentinel-2
+  - Model Context Protocol
+  - evidence agent
+  - Arabic
+  - Lebanon

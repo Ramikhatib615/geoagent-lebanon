@@ -1,0 +1,97 @@
+block_id,batch,brow,bcol,test_id,score_spectral,score_dino,label_class,human_label,reviewer_agreement,lat,lon,governorate,cadastral_unit,osm_building_count_2022,2018_n,2018_n_cent,2018_area,2018_sumarea_naive,2018_cat_D_disappearing,2018_cat_A_unchanged,2018_edge_cross,2018_cat_B_modified_geometry,2018_cat_E_remapped_split_merged,2018_nb3km,2025_n,2025_n_cent,2025_area,2025_sumarea_naive,2025_cat_C_appearing,2025_edge_cross,2025_cat_A_unchanged,2025_cat_B_modified_geometry,2025_cat_E_remapped_split_merged,2025_nb3km,cover_pct_2018,cover_pct_2025,any18,any25,any22
+N900_900,1,900,900,S000,0.432,0.1933,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.265806,36.179297,Akkar,Synthetic unit 0,7,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N900_901,1,900,901,S001,1.2417,0.1943,two_reviewers_concordant,change,agreed,33.508273,35.454287,Baalbek-Hermel,Synthetic unit 1,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N900_902,1,900,902,S002,1.4456,0.1544,two_reviewers_concordant,change,agreed,34.566348,35.752507,Beirut,Synthetic unit 2,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N900_903,1,900,903,S003,1.8713,0.1196,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.173514,35.463313,Bekaa,Synthetic unit 3,25,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N900_904,1,900,904,S004,1.5272,0.0857,two_reviewers_concordant,change,agreed,33.717389,35.572031,Mount Lebanon,Synthetic unit 4,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N900_905,1,900,905,S005,1.0576,0.1602,two_reviewers_concordant,no_change,agreed,33.69406,36.029283,Nabatiye,Synthetic unit 5,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N900_906,1,900,906,S006,0.5549,0.093,two_reviewers_concordant,no_change,agreed,33.616828,35.737911,North,Synthetic unit 6,2,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,1
+N900_907,1,900,907,S007,0.9082,0.1753,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.412965,35.404168,South,Synthetic unit 7,25,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N900_908,1,900,908,S008,1.0527,0.1002,two_reviewers_concordant,no_change,agreed,33.921114,35.569068,Akkar,Synthetic unit 8,2,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N900_909,1,900,909,S009,0.5578,0.0927,two_reviewers_concordant,change,agreed,33.279008,36.261306,Baalbek-Hermel,Synthetic unit 9,0,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,0
+N900_910,1,900,910,S010,1.0812,0.1734,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,34.438473,35.788727,Beirut,Synthetic unit 10,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0
+N900_911,1,900,911,S011,0.8424,0.1929,single_rater_resolution,no_change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,33.851921,35.970389,Bekaa,Synthetic unit 11,90,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N901_900,1,901,900,S012,1.7033,0.0995,two_reviewers_concordant,change,agreed,34.563702,35.482785,Mount Lebanon,Synthetic unit 12,7,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N901_901,1,901,901,S013,1.7978,0.1295,two_reviewers_concordant,no_change,agreed,33.882586,36.46594,Nabatiye,Synthetic unit 13,2,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N901_902,1,901,902,S014,0.4483,0.1703,two_reviewers_concordant,change,agreed,33.203016,36.292916,North,Synthetic unit 14,7,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,1
+N901_903,1,901,903,S015,1.0817,0.1413,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.225945,36.028503,South,Synthetic unit 15,0,12,0,0,0,0,12,0,0,0,108,22,0,0,0,10,0,12,0,0,198,0.96,1.76,1,1,0
+N901_904,1,901,904,S016,1.0746,0.1399,two_reviewers_concordant,change,agreed,33.833166,35.849861,Akkar,Synthetic unit 16,0,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,0
+N901_905,1,901,905,S017,1.679,0.2342,two_reviewers_concordant,change,agreed,33.540275,36.065302,Baalbek-Hermel,Synthetic unit 17,2,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N901_906,1,901,906,S018,1.4181,0.3051,two_reviewers_concordant,change,agreed,33.551971,36.184871,Beirut,Synthetic unit 18,7,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N901_907,1,901,907,S019,0.6511,0.1684,two_reviewers_concordant,no_change,agreed,33.324715,35.357671,Bekaa,Synthetic unit 19,2,1,0,0,0,0,1,0,0,0,9,11,0,0,0,10,0,1,0,0,99,0.08,0.88,1,1,1
+N901_908,1,901,908,S020,0.9792,0.182,two_reviewers_concordant,change,agreed,33.942826,35.551268,Mount Lebanon,Synthetic unit 0,0,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,0
+N901_909,1,901,909,S021,0.7979,0.1077,two_reviewers_concordant,no_change,agreed,34.455515,35.652444,Nabatiye,Synthetic unit 1,90,12,0,0,0,0,12,0,0,0,108,22,0,0,0,10,0,12,0,0,198,0.96,1.76,1,1,1
+N901_910,1,901,910,S022,0.4636,0.036,two_reviewers_concordant,no_change,agreed,34.460582,35.772109,North,Synthetic unit 2,25,1,0,0,0,0,1,0,0,0,9,4,0,0,0,3,0,1,0,0,36,0.08,0.32,1,1,1
+N901_911,1,901,911,S023,-0.0836,0.0876,two_reviewers_concordant,no_change,agreed,34.544834,35.86094,South,Synthetic unit 3,0,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,0
+N902_900,1,902,900,S024,1.2253,0.2062,two_reviewers_concordant,no_change,agreed,33.416336,35.818325,Akkar,Synthetic unit 4,90,4,0,0,0,0,4,0,0,0,36,7,0,0,0,3,0,4,0,0,63,0.32,0.56,1,1,1
+N902_901,1,902,901,S025,1.1054,0.0616,two_reviewers_concordant,no_change,agreed,33.893081,36.246855,Baalbek-Hermel,Synthetic unit 5,7,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N902_902,1,902,902,S026,2.1627,0.2301,two_reviewers_concordant,change,agreed,33.393569,35.838659,Beirut,Synthetic unit 6,0,4,0,0,0,0,4,0,0,0,36,14,0,0,0,10,0,4,0,0,126,0.32,1.12,1,1,0
+N902_903,1,902,903,S027,1.2099,0.139,two_reviewers_concordant,change,agreed,34.002449,35.662462,Bekaa,Synthetic unit 7,0,1,0,0,0,0,1,0,0,0,9,11,0,0,0,10,0,1,0,0,99,0.08,0.88,1,1,0
+N902_904,1,902,904,S028,1.6668,0.1264,two_reviewers_concordant,no_change,agreed,33.623475,36.018525,Mount Lebanon,Synthetic unit 8,2,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,1
+N902_905,1,902,905,S029,1.8805,0.1587,two_reviewers_concordant,change,agreed,34.461771,35.294234,Nabatiye,Synthetic unit 9,0,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,0
+N902_906,1,902,906,S030,1.7821,0.2321,two_reviewers_concordant,change,agreed,33.773233,35.364407,North,Synthetic unit 10,7,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,1
+N902_907,1,902,907,S031,1.6735,0.0986,two_reviewers_concordant,no_change,agreed,34.23729,36.084179,South,Synthetic unit 11,0,4,0,0,0,0,4,0,0,0,36,14,0,0,0,10,0,4,0,0,126,0.32,1.12,1,1,0
+N902_908,2,902,908,S032,0.376,0.2329,single_rater_resolution,no_change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,34.288166,35.81827,Akkar,Synthetic unit 12,25,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N902_909,2,902,909,S033,1.3975,0.1008,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.418638,35.442308,Baalbek-Hermel,Synthetic unit 13,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N902_910,2,902,910,S034,1.4383,0.183,two_reviewers_concordant,change,agreed,34.077704,36.491099,Beirut,Synthetic unit 14,90,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N902_911,2,902,911,S035,1.1969,0.0845,two_reviewers_concordant,no_change,agreed,34.177728,36.429412,Bekaa,Synthetic unit 15,25,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N903_900,2,903,900,S036,1.3786,0.0707,two_reviewers_concordant,no_change,agreed,34.010255,35.38104,Mount Lebanon,Synthetic unit 16,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0
+N903_901,2,903,901,S037,1.2423,0.1121,single_rater_resolution,change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,33.300107,35.220768,Nabatiye,Synthetic unit 17,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N903_902,2,903,902,S038,1.1873,0.0999,two_reviewers_concordant,no_change,agreed,34.491156,35.573062,North,Synthetic unit 18,7,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,1
+N903_903,2,903,903,S039,0.67,0.2329,two_reviewers_concordant,no_change,agreed,33.679997,35.690887,South,Synthetic unit 19,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N903_904,2,903,904,S040,0.0763,0.1848,two_reviewers_concordant,no_change,agreed,34.145586,36.122795,Akkar,Synthetic unit 0,25,4,0,0,0,0,4,0,0,0,36,7,0,0,0,3,0,4,0,0,63,0.32,0.56,1,1,1
+N903_905,2,903,905,S041,0.5586,0.1823,two_reviewers_concordant,no_change,agreed,33.849854,35.714207,Baalbek-Hermel,Synthetic unit 1,0,1,0,0,0,0,1,0,0,0,9,11,0,0,0,10,0,1,0,0,99,0.08,0.88,1,1,0
+N903_906,2,903,906,S042,1.1528,0.0768,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,33.15312,35.412806,Beirut,Synthetic unit 2,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0
+N903_907,2,903,907,S043,0.305,0.2015,two_reviewers_concordant,change,agreed,34.456137,35.729848,Bekaa,Synthetic unit 3,0,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,0
+N903_908,2,903,908,S044,0.3293,0.1501,single_rater_resolution,no_change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,33.959887,36.135494,Mount Lebanon,Synthetic unit 4,90,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N903_909,2,903,909,S045,1.0971,0.0684,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,34.394829,35.616841,Nabatiye,Synthetic unit 5,0,4,0,0,0,0,4,0,0,0,36,7,0,0,0,3,0,4,0,0,63,0.32,0.56,1,1,0
+N903_910,2,903,910,S046,1.3097,0.0554,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.198554,35.678742,North,Synthetic unit 6,90,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N903_911,2,903,911,S047,0.1409,0.0825,two_reviewers_concordant,no_change,agreed,33.199621,35.639056,South,Synthetic unit 7,90,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,1
+N904_900,2,904,900,S048,1.1038,0.2029,two_reviewers_concordant,change,agreed,34.192183,36.150724,Akkar,Synthetic unit 8,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N904_901,2,904,901,S049,0.8764,0.1845,two_reviewers_concordant,no_change,agreed,33.733624,35.787517,Baalbek-Hermel,Synthetic unit 9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N904_902,2,904,902,S050,0.0518,0.123,two_reviewers_concordant,change,agreed,33.99475,36.067875,Beirut,Synthetic unit 10,0,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,0
+N904_903,2,904,903,S051,0.9726,0.2308,two_reviewers_concordant,change,agreed,33.759871,36.467989,Bekaa,Synthetic unit 11,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0
+N904_904,2,904,904,S052,0.5369,0.1471,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.583147,35.634548,Mount Lebanon,Synthetic unit 12,25,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N904_905,2,904,905,S053,0.9543,0.1505,two_reviewers_concordant,no_change,agreed,33.744092,36.240728,Nabatiye,Synthetic unit 13,25,1,0,0,0,0,1,0,0,0,9,11,0,0,0,10,0,1,0,0,99,0.08,0.88,1,1,1
+N904_906,2,904,906,S054,1.3664,0.1417,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.492138,35.204053,North,Synthetic unit 14,25,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,1
+N904_907,2,904,907,S055,1.414,0.1262,two_reviewers_concordant,no_change,agreed,34.491867,35.451094,South,Synthetic unit 15,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N904_908,2,904,908,S056,1.5135,0.2782,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.173548,35.207272,Akkar,Synthetic unit 16,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N904_909,2,904,909,S057,1.1911,0.0922,two_reviewers_concordant,no_change,agreed,33.268873,35.816364,Baalbek-Hermel,Synthetic unit 17,0,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,0
+N904_910,2,904,910,S058,0.7014,0.0789,two_reviewers_concordant,no_change,agreed,34.337253,35.687541,Beirut,Synthetic unit 18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N904_911,2,904,911,S059,0.1976,0.1755,two_reviewers_concordant,change,agreed,33.529056,36.153796,Bekaa,Synthetic unit 19,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N905_900,2,905,900,S060,0.9261,0.1812,two_reviewers_concordant,change,agreed,34.407652,36.171913,Mount Lebanon,Synthetic unit 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N905_901,2,905,901,S061,1.4581,0.189,two_reviewers_concordant,change,agreed,34.049101,36.095446,Nabatiye,Synthetic unit 1,2,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N905_902,2,905,902,S062,1.3727,0.1118,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.503207,35.621017,North,Synthetic unit 2,0,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,0
+N905_903,2,905,903,S063,1.185,0.1292,two_reviewers_concordant,change,agreed,33.358425,35.263778,South,Synthetic unit 3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N905_904,2,905,904,S064,1.2541,0.1703,two_reviewers_concordant,change,agreed,33.503737,36.210054,Akkar,Synthetic unit 4,0,4,0,0,0,0,4,0,0,0,36,14,0,0,0,10,0,4,0,0,126,0.32,1.12,1,1,0
+N905_905,2,905,905,S065,0.6069,0.1545,two_reviewers_concordant,no_change,agreed,33.784035,36.299713,Baalbek-Hermel,Synthetic unit 5,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,0
+N905_906,2,905,906,S066,1.7096,0.0956,two_reviewers_concordant,no_change,agreed,34.061534,35.58642,Beirut,Synthetic unit 6,7,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,1
+N905_907,2,905,907,S067,2.008,0.1727,two_reviewers_concordant,change,agreed,33.820966,36.277023,Bekaa,Synthetic unit 7,0,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,0
+N905_908,2,905,908,S068,0.7257,0.167,two_reviewers_concordant,change,agreed,33.130326,36.142149,Mount Lebanon,Synthetic unit 8,0,4,0,0,0,0,4,0,0,0,36,14,0,0,0,10,0,4,0,0,126,0.32,1.12,1,1,0
+N905_909,2,905,909,S069,1.8739,0.2001,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.239472,35.771787,Nabatiye,Synthetic unit 9,7,4,0,0,0,0,4,0,0,0,36,7,0,0,0,3,0,4,0,0,63,0.32,0.56,1,1,1
+N905_910,2,905,910,S070,1.04,0.1284,single_rater_resolution,change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,33.110622,36.235359,North,Synthetic unit 10,25,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N905_911,2,905,911,S071,0.9906,0.1325,two_reviewers_concordant,no_change,agreed,33.666665,35.686243,South,Synthetic unit 11,0,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,0
+N906_900,2,906,900,S072,0.8592,0.1938,two_reviewers_concordant,change,agreed,33.183058,36.487436,Akkar,Synthetic unit 12,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N906_901,2,906,901,S073,1.0084,0.0945,two_reviewers_concordant,change,agreed,33.498455,36.010595,Baalbek-Hermel,Synthetic unit 13,2,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,1
+N906_902,2,906,902,S074,1.1572,0.1242,two_reviewers_concordant,no_change,agreed,33.329829,35.905271,Beirut,Synthetic unit 14,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N906_903,2,906,903,S075,1.2833,0.2029,two_reviewers_concordant,no_change,agreed,33.392181,35.285421,Bekaa,Synthetic unit 15,25,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N906_904,2,906,904,S076,2.7461,0.1085,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,33.261563,35.862915,Mount Lebanon,Synthetic unit 16,0,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,0
+N906_905,2,906,905,S077,1.3959,0.0659,two_reviewers_concordant,change,agreed,34.125224,36.234438,Nabatiye,Synthetic unit 17,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,1
+N906_906,2,906,906,S078,0.9996,0.1684,two_reviewers_concordant,no_change,agreed,33.744056,35.216516,North,Synthetic unit 18,0,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,0
+N906_907,2,906,907,S079,1.3817,0.1598,two_reviewers_concordant,change,agreed,33.49641,36.334114,South,Synthetic unit 19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N906_908,2,906,908,S080,1.6271,0.1948,two_reviewers_concordant,change,agreed,34.135539,35.529515,Akkar,Synthetic unit 0,2,4,0,0,0,0,4,0,0,0,36,7,0,0,0,3,0,4,0,0,63,0.32,0.56,1,1,1
+N906_909,2,906,909,S081,1.1408,0.1621,two_reviewers_concordant,no_change,agreed,34.177518,35.734951,Baalbek-Hermel,Synthetic unit 1,25,4,0,0,0,0,4,0,0,0,36,14,0,0,0,10,0,4,0,0,126,0.32,1.12,1,1,1
+N906_910,2,906,910,S082,1.1651,0.1866,single_rater_resolution,no_change,not_applicable_one_rating_after_two_reviewers_could_not_resolve,34.416011,35.910684,Beirut,Synthetic unit 2,7,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,1
+N906_911,2,906,911,S083,1.1913,0.1003,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,33.263897,35.529014,Bekaa,Synthetic unit 3,7,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N907_900,2,907,900,S084,0.9974,0.2216,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,33.438155,36.143728,Mount Lebanon,Synthetic unit 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N907_901,2,907,901,S085,2.1661,0.1071,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,33.38212,35.755651,Nabatiye,Synthetic unit 5,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0
+N907_902,2,907,902,S086,1.3337,0.143,adjudicated_by_third_reviewer,change,disagreed_then_adjudicated,34.22762,36.423927,North,Synthetic unit 6,25,12,0,0,0,0,12,0,0,0,108,12,0,0,0,0,0,12,0,0,108,0.96,0.96,1,1,1
+N907_903,2,907,903,S087,1.6608,0.1618,two_reviewers_concordant,no_change,agreed,33.783173,36.403689,South,Synthetic unit 7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0
+N907_904,2,907,904,S088,0.7017,0.1615,two_reviewers_concordant,change,agreed,34.275624,35.344023,Akkar,Synthetic unit 8,0,1,0,0,0,0,1,0,0,0,9,1,0,0,0,0,0,1,0,0,9,0.08,0.08,1,1,0
+N907_905,2,907,905,S089,0.8956,0.1639,two_reviewers_concordant,no_change,agreed,34.41612,36.274276,Baalbek-Hermel,Synthetic unit 9,90,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N907_906,2,907,906,S090,0.8619,0.113,two_reviewers_concordant,change,agreed,34.173919,36.204671,Beirut,Synthetic unit 10,25,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N907_907,2,907,907,S091,2.0539,0.1826,two_reviewers_concordant,change,agreed,33.382814,36.400036,Bekaa,Synthetic unit 11,90,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,27,0.0,0.24,0,1,1
+N907_908,2,907,908,S092,1.2037,0.1356,two_reviewers_concordant,change,agreed,34.124714,35.76828,Mount Lebanon,Synthetic unit 12,90,4,0,0,0,0,4,0,0,0,36,4,0,0,0,0,0,4,0,0,36,0.32,0.32,1,1,1
+N907_909,2,907,909,S093,1.512,0.2063,adjudicated_by_third_reviewer,no_change,disagreed_then_adjudicated,33.228952,36.395355,Nabatiye,Synthetic unit 13,7,12,0,0,0,0,12,0,0,0,108,15,0,0,0,3,0,12,0,0,135,0.96,1.2,1,1,1
+N907_910,2,907,910,S094,0.9314,0.2182,two_reviewers_concordant,change,agreed,33.268393,35.936132,North,Synthetic unit 14,2,12,0,0,0,0,12,0,0,0,108,22,0,0,0,10,0,12,0,0,198,0.96,1.76,1,1,1
+N907_911,2,907,911,S095,0.8174,0.2011,two_reviewers_concordant,change,agreed,33.301637,35.30837,South,Synthetic unit 15,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,0,0,0,0,90,0.0,0.8,0,1,0

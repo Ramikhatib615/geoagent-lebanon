@@ -11,6 +11,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ.setdefault("GEOAGENT_AUDIT_LOG", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "outputs", "agent_tool_audit_log.jsonl"))
 import tools
 import tool_audit_log
+import human_ref_tools   # registers the 11 human-reference tools (read-only)
+import osm_tools_v25     # registers the 8 historical-OpenStreetMap tools (read-only)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2 or sys.argv[1] == "list":

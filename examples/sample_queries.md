@@ -1,7 +1,7 @@
 # Sample queries
 
-Copy any of these into Claude Desktop (once the MCP server is configured — see
-[../README.md](../README.md#claude-desktop-mcp-setup)) or run them directly with no LLM via
+Copy any of these into an MCP client (once the MCP server is configured — see
+[../README.md](../README.md#mcp-client-setup)) or run them directly with no LLM via
 `python src/geoagent/tool_cli.py <tool> "<json-args>"`. Recorded outputs for a subset of these are in
 [sample_outputs.md](sample_outputs.md).
 

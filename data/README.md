@@ -13,18 +13,18 @@ nothing in `outputs/eval/` is raw or high-resolution satellite imagery, and none
 | `change_types/ct_index.json` | <1 KB | Path index mapping block ids to change-type crop image filenames — **the crop images themselves are not included** (see below). |
 | `conformal_results_AI_consensus.json` | ~1 KB | Model-level conformal deferral rate used by `uncertainty()`. |
 | `eval_results_AI_consensus.json` | ~4 KB | Pre-audit AI-consensus prevalence estimates, used by `area_estimate()` and cross-checked in tests. |
-| `human_audit_results.csv` | ~25 KB | The completed blind two-reviewer human audit: both reviewers' labels, the final label, and the interpretation-sensitive flag, for the 80-block sample. |
+| `human_audit_results.csv` | ~25 KB | The completed two-reviewer human audit (protocol specified blinding): both reviewers' labels, the final label, and the interpretation-sensitive flag, for the 80-block sample. |
 | `human_audit_key_R26.csv` | ~4 KB | The pre-registered audit design, including which 13 blocks are Rule 1 "certainty units". |
 | `appendix_g_rules23_R38.json` | <1 KB | The correlated-error test (Rule 2) result. |
 | `audited_primary_reanalysis_R38.json` | ~2.5 KB | The audit-corrected headline AUC comparison and changed-area re-estimate. |
 
-Total: well under 200 KB. All of these are the small, already-finalized *results* of the thesis's GIS and
+Total: well under 200 KB. All of these are the small, already-finalized *results* of the project's GIS and
 audit workflow — not the workflow's inputs.
 
 ## What is NOT included
 
 - **No raw or high-resolution satellite imagery** (Sentinel-2 scenes, Esri World Imagery/Wayback tiles, or
-  any derived rasters). These are used in the thesis's GIS workflow (see
+  any derived rasters). These are used in the project's GIS workflow (see
   [../docs/gis-workflow.md](../docs/gis-workflow.md)) under licenses that do not permit redistribution.
 - **No change-type crop images** (`change_types/ct_*.png`) — only the path index that references them.
   These are small image crops for human interpretation, excluded here to keep the repository lean and
@@ -32,4 +32,10 @@ audit workflow — not the workflow's inputs.
 - **No ArcGIS Pro project files, map packages, or QGIS project files.**
 - **No full evaluation-run or benchmark corpora** — see [../results/README.md](../results/README.md).
 
-If you need any of the above, they are part of the full thesis submission bundle, not this repository.
+If you need any of the above, they are part of the full project submission bundle, not this repository.
+
+## Restricted tables (not included)
+
+The 300-block human reference set and the block-level historical OpenStreetMap features used by the
+19 extended tools are not redistributed. See [../docs/data-availability.md](../docs/data-availability.md)
+for the reasons, the behaviour of the tools without them and how to supply your own copy.

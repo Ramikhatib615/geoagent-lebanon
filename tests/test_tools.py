@@ -139,7 +139,7 @@ def test_map_catalog_and_block_demo_R44():
                    "operational_deferral_map", "audit_corrected_interpretation"]
     for m in mc["maps"]:
         assert m["path_pdf"].endswith(".pdf") and m["path_png"].endswith(".png") and "exists" in m
-        assert m["thesis_section"] and m["title"] and m["what_it_shows"] and m["talking_point"] and m["caveat"]
+        assert m["report_section"] and m["title"] and m["what_it_shows"] and m["talking_point"] and m["caveat"]
     mc_ar = tools.map_catalog(lang="ar")
     assert any("؀" <= ch <= "ۿ" for ch in mc_ar["maps"][0]["title"])
 

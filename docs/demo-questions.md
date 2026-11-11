@@ -1,7 +1,7 @@
 # Demo script
 
-A ready-to-run sequence for demonstrating the live agent (via Claude Desktop once the MCP server is
-configured — see [README.md](../README.md#claude-desktop-mcp-setup) — or via `tool_cli.py` with no LLM
+A ready-to-run sequence for demonstrating the live agent (via an MCP client once the MCP server is
+configured — see [README.md](../README.md#mcp-client-setup) — or via `tool_cli.py` with no LLM
 needed at all). Each question below names the tool the agent should reach for and what a correct answer
 should contain; full recorded outputs are in [examples/sample_outputs.md](../examples/sample_outputs.md).
 
@@ -23,7 +23,7 @@ should contain; full recorded outputs are in [examples/sample_outputs.md](../exa
    originally disagreed (`query_blocks(annotators_disagree=true)`).
 7. **"Explain the difference between AI-consensus labels and human audit labels."** → `audit_status` +
    `block_evidence`. Expect: AI-consensus = two AI annotators + adjudication, present for all 200 blocks,
-   never itself human-verified; human audit = blind two-reviewer review of the 80 decision-sensitive
+   never itself human-verified; human audit = two-reviewer review (protocol specified blinding) of the 80 decision-sensitive
    blocks only, surfaced via `human_audit.audited: true`, and treated as primary where the two differ.
 8. **"Compare spectral, random forest and DINOv2."** → `audit_status` → `audited_headline_auc`. Expect: the
    three models' audited AUC values and the spectral-minus-random-forest gap and its CI, with the same
